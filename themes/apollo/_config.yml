@@ -9,12 +9,12 @@ logo: /favicon.png
 
 # Comment
 # e.g disqus: seansun
-disqus: iakuma
-duoshuo:
+# disqus: iakuma
+duoshuo: iakuma
 
 # Analytics
 # google-analytics:
 ga:
 
 # Copyright Infomation
-startyear: 2015
+startyear: 2009
