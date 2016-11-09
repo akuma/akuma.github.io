@@ -193,7 +193,7 @@ This is an inline code: `var example = true`
 console.log('Hello world!')
 ``````
 
-## Diagrams
+### Diagrams
 
 这部分功能使用 [Mermaid](https://github.com/knsv/mermaid) 实现，具体可以参考它的[文档](http://knsv.github.io/mermaid/)。
 
@@ -226,14 +226,14 @@ gantt
   anther task      : 24d
 ``````
 
-## Math Equations
+### Math Equations
 
-### Inline
+#### Inline Equations
 
 When $a \ne 0$, there are two solutions to $ax^2 + bx + c = 0$ and they are
 $x = {-b \pm \sqrt {b^2-4ac} \over 2a}$.
 
-### Block
+#### Block Equations
 
 $$
 \displaystyle \left( \sum_{k=1}^n a_k b_k \right)^2 \leq
