@@ -7,7 +7,7 @@
             border-bottom: 0px;
         }
     }
-    .post-content{
+    .post-content {
         h2, h3, h4, h5, h6 {
             &:before {
                 content: '';
@@ -17,7 +17,7 @@
             list-style: initial;
         }
     }
-    .read-more {     
+    .read-more {
         color: #42b983;
     }
 }

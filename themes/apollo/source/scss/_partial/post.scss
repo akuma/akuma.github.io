@@ -4,9 +4,9 @@
 
 .post-block {
     .post-title {
-        margin: 0.65em 0;
+        margin: 0 0 1em;
         color: #2c3e50;
-        font-size: 1.5em;
+        font-size: 2em;
     }
 
     .post-info {
@@ -27,7 +27,13 @@
 }
 
 .post-content {
-    h2, h3, h4, h5, h6 {
+    h2 {
+      margin: 2em 0 0.8em;
+      padding-bottom: 0.7em;
+      border-bottom: 1px solid #ddd;
+      font-size: 1.5em;
+    }
+    h3 {
         position: relative;
         margin: 1em 0;
         &:before {
@@ -35,24 +41,23 @@
             color: #42b983;
             position: absolute;
             left: -0.7em;
-            top: -4px;
+            top: -2px;
             font-size: 1.2em;
             font-weight: bold;
         }
     }
-    h4, h5, h6 {
-        &:before {
-            content: "";
-        }
-    }
+    // h4, h5, h6 {
+    //     &:before {
+    //         content: "";
+    //     }
+    // }
+    // h2, h3 {
+    //     font-size: 22px;
+    // }
+    // h4, h5, h6 {
+    //     font-size: 18px;
+    // }
 
-    h2, h3 {
-        font-size: 22px;
-    }
-
-    h4, h5, h6 {
-        font-size: 18px;
-    }
     a {
         color: #42b983;
         word-break: break-all;
