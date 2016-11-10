@@ -1,5 +1,5 @@
 ---
-title: XMemcachedCache 中几种 Hash 算法性能对比
+title: Memcached 客户端的几种 Hash 算法性能对比
 date: 2011-05-26 19:34:01
 tags: cache memcached performance hash
 ---
@@ -9,6 +9,8 @@ tags: cache memcached performance hash
 在一台 Memcached 服务器上开启了 3 个不同端口的进程，Memcached 客户端以相同的权重访问这三个进程。
 
 测试客户端使用 2000 个并发线程，其中 1000 个执行 PUT 操作，另外 1000 个执行 GET 操作，每个线程中的 PUT 和 GET 操作均执行 1000 次。存入缓存的值为长度在 20 到 256 之间的随机字符串。
+
+<!--more-->
 
 ### 机器配置表
 
