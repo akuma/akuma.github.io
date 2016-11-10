@@ -14,9 +14,9 @@ tags: http
 
 ### 修改 nginx 配置文件
 
-nginx 里设置这个比较简单，只需要在 location 节点中添加如下配置即可：
+nginx 里设置这个比较简单，只需要在 `location` 节点中添加如下配置即可：
 
-```
+```nginx
 limit_except GET POST {
   deny   all;
 }
@@ -24,7 +24,7 @@ limit_except GET POST {
 
 如果想要对个别 IP 开放，可以这样设置：
 
-```
+```nginx
 limit_except GET POST {
   allow  192.168.1.0/32; # 对客户端 192.168.1.0 - 192.168.1.32 开放
   deny   all;
@@ -39,8 +39,8 @@ limit_except GET POST {
 
 ### 修改 tomcat（或应用系统）的 web.xml
 
-如果是 tomcat 直接暴露外网 IP 的情况，那么只能通过修改 web.xml 来实现屏蔽相关 method 的请求。
-在 web.xml 中添加如下代码：
+如果是 tomcat 直接暴露外网 IP 的情况，那么只能通过修改 `web.xml` 来实现屏蔽相关 method 的请求。
+在 `web.xml` 中添加如下代码：
 
 ```xml
 <security-constraint>
@@ -59,5 +59,5 @@ limit_except GET POST {
 
 这样应用系统就只会接受 GET、POST 方式的请求了。
 
-经过测试，如果 <security-constraint> 中没有 <auth-constraint> 子元素的话，配置实际上是不起中用的。
-如果加入了 <auth-constraint> 子元素，但是其内容为空，这表示所有身份的用户都被禁止访问相应的资源。
+经过测试，如果 `<security-constraint>` 中没有 `<auth-constraint>` 子元素的话，配置实际上是不起中用的。
+如果加入了 `<auth-constraint>` 子元素，但是其内容为空，这表示所有身份的用户都被禁止访问相应的资源。
