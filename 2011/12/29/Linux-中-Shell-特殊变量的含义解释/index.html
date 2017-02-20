@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Linux 中 Shell 特殊变量的含义解释 · Coding Life</title><meta name="description" content="Linux 中 Shell 特殊变量的含义解释 - Akuma Huang"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://akuma.github.io/atom.xml" title="Coding Life"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/akuma" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Linux 中 Shell 特殊变量的含义解释</h1><div class="post-info">Dec 29, 2011</div><div class="post-content"><p>经常忘记一些 shell 特殊变量的含义，所以写在这里备忘一下。</p>
+<a id="more"></a>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">变量名</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$?</td>
+<td style="text-align:center">最后运行的命令的结束代码（返回值）</td>
+</tr>
+<tr>
+<td style="text-align:center">$*</td>
+<td style="text-align:center">所有参数列表。如 “$*” 用「”」括起来的情况、以 “$1 $2 … $n” 的形式输出所有参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$@</td>
+<td style="text-align:center">所有参数列表。如 “$@” 用「”」括起来的情况、以 “$1” “$2” … “$n” 的形式输出所有参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$#</td>
+<td style="text-align:center">添加到 Shell 的参数个数</td>
+</tr>
+<tr>
+<td style="text-align:center">$0</td>
+<td style="text-align:center">Shell 本身的文件名</td>
+</tr>
+<tr>
+<td style="text-align:center">$1-$n</td>
+<td style="text-align:center">添加到 Shell 的各参数值。$1 是第 1 参数、$2 是第 2 参数…。</td>
+</tr>
+<tr>
+<td style="text-align:center">$-</td>
+<td style="text-align:center">使用 Set 命令设定的 Flag 一览</td>
+</tr>
+<tr>
+<td style="text-align:center">$_</td>
+<td style="text-align:center">保存之前执行的命令的最后一个参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$!</td>
+<td style="text-align:center">Shell 最后运行的后台 Process 的 PID</td>
+</tr>
+<tr>
+<td style="text-align:center">$$</td>
+<td style="text-align:center">Shell 本身的 PID（ProcessID）</td>
+</tr>
+</tbody>
+</table>
+</div></article></div></section><footer><div class="paginator"><a href="/2012/01/08/SVN-迁移到-Git-的方法/" class="prev">PREV</a><a href="/2011/10/18/关于-IE6-处理压缩-JavaScript-的-Bug/" class="next">NEXT</a></div><div data-thread-key="2011/12/29/Linux-中-Shell-特殊变量的含义解释/" data-title="Linux 中 Shell 特殊变量的含义解释" data-url="https://akuma.github.io/2011/12/29/Linux-中-Shell-特殊变量的含义解释/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2009 - 2017 <a href="https://akuma.github.io">Akuma Huang</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

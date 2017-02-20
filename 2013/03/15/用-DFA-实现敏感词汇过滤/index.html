@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 用 DFA 实现敏感词汇过滤 · Coding Life</title><meta name="description" content="用 DFA 实现敏感词汇过滤 - Akuma Huang"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://akuma.github.io/atom.xml" title="Coding Life"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/akuma" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">用 DFA 实现敏感词汇过滤</h1><div class="post-info">Mar 15, 2013</div><div class="post-content"><p>因为项目需要重写了一个简单的过滤敏感词汇的工具类，因为使用了 <code>DFA</code> 算法，所以比较高效。具体实现时在 DFA 算法基础上做了一些改进，如英文词汇的检测改造：单词 <code>have</code> 不会检测出 <code>av</code>，而单词 <code>av</code> 则能检测到。</p>
+<a id="more"></a>
+<h2 id="具体的使用方法"><a href="#具体的使用方法" class="headerlink" title="具体的使用方法"></a>具体的使用方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String content = <span class="string">"敏感词汇"</span>; <span class="comment">// 这是需要过滤的文本</span></div><div class="line">List&lt;String&gt; tabooedList = TabooedUtils.getTabooedWords(content); <span class="comment">// 这是过滤出来的敏感词汇列表</span></div></pre></td></tr></table></figure>
+<p>另外，如果想自己定义敏感词汇，可以在项目的 src 下面建立一个名为 tabooed.words 的敏感词汇文件。文件内容为每行一个敏感词，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">zhuanfalun</div><div class="line">bitch</div><div class="line">三个代表</div><div class="line">一党</div><div class="line">多党</div></pre></td></tr></table></figure>
+<p>这样 <code>TabooedUtils</code> 就会使用自定义的词汇文件，而不用框架中默认的文件。</p>
+<p>敏感词汇会在工具类 <code>TabooedUtils</code> 被 JVM 加载的时候载入并缓存。如果想临时修改词汇文件而又不想重启应用就生效，可以在程序中调用 reload 敏感词汇文件的方法，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TabooedUtils.reloadTabooedWords(); // 重新加载 tabooed.words 文件</div><div class="line">String content = &quot;敏感词汇&quot;; // 这是需要过滤的文本</div><div class="line">List&lt;String&gt; tabooedList = TabooedUtils.getTabooedWords(content); // 这是过滤出来的敏感词汇列表</div></pre></td></tr></table></figure>
+<h2 id="关于性能"><a href="#关于性能" class="headerlink" title="关于性能"></a>关于性能</h2><p>根据初步的测试结果，在 1000 多敏感词汇的情况下，连续过滤 1378 字的文章 1000 次，耗时 200 ms。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://www.iteye.com/topic/336577/" target="_blank" rel="external">使用 DFA 实现文字过滤</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/dfa" target="_blank" rel="external">维基百科 DFA</a></li>
+</ul>
+</div></article></div></section><footer><div class="paginator"><a href="/2013/07/07/几种-Linux-发行版的网络配置/" class="prev">PREV</a><a href="/2012/09/18/使用-Servlet-Filter-实现页面缓存/" class="next">NEXT</a></div><div data-thread-key="2013/03/15/用-DFA-实现敏感词汇过滤/" data-title="用 DFA 实现敏感词汇过滤" data-url="https://akuma.github.io/2013/03/15/用-DFA-实现敏感词汇过滤/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2009 - 2017 <a href="https://akuma.github.io">Akuma Huang</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

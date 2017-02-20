@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> SSH 公钥认证使用指南 · Coding Life</title><meta name="description" content="SSH 公钥认证使用指南 - Akuma Huang"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://akuma.github.io/atom.xml" title="Coding Life"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/akuma" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">SSH 公钥认证使用指南</h1><div class="post-info">Nov 1, 2010</div><div class="post-content"><h2 id="为什么要使用公钥认证"><a href="#为什么要使用公钥认证" class="headerlink" title="为什么要使用公钥认证"></a>为什么要使用公钥认证</h2><p>通常，通过 ssh 登录远程服务器时，使用密码认证，分别输入用户名和密码，两者和服务器端匹配就可以登录。<br><br>但是密码认证有以下的缺点：</p>
+<ul>
+<li>用户无法设置空密码（即使系统允许空密码，也会十分危险）。</li>
+<li>密码容易被人偷窥或猜到。</li>
+<li>服务器上的一个帐户若要给多人使用，则必须让所有使用者都知道密码，导致密码容易泄露，而且修改密码时必须通知所有人。</li>
+</ul>
+<a id="more"></a>
+<p>而使用公钥认证则可以解决上述问题。</p>
+<ul>
+<li>公钥认证允许使用空密码，省去每次登录都需要输入密码的麻烦。</li>
+<li>多个使用者可以通过各自的密钥登录到系统上的同一个用户。</li>
+</ul>
+<h2 id="公钥认证的原理"><a href="#公钥认证的原理" class="headerlink" title="公钥认证的原理"></a>公钥认证的原理</h2><p>所谓的公钥认证，实际上是使用一对加密字符串，一个称为公钥（public key），任何人都可以看到其内容，用于加密；<br>另一个称为密钥（private key），只有拥有者才能看到，用于解密。<br>通过公钥加密过的密文使用密钥可以轻松解密，但根据公钥来猜测密钥却十分困难。</p>
+<p>ssh 的公钥认证就是使用了这一特性。服务器和客户端都各自拥有自己的公钥和密钥。为了说明方便，以下将使用这些符号。</p>
+<p>客户端公钥    Ac<br>客户端密钥    Bc<br>服务器公钥    As<br>服务器密钥    Bs</p>
+<p>在认证之前，客户端需要通过某种方法将公钥 Ac 登录到服务器上。</p>
+<p>认证过程分为两个步骤:</p>
+<ol>
+<li>会话密钥（session key）生成<ol>
+<li>客户端请求连接服务器，服务器将 As 发送给客户端。</li>
+<li>服务器生成会话ID(session id)，设为 p，发送给客户端。</li>
+<li>客户端生成会话密钥(session key)，设为 q，并计算 r = p xor q。</li>
+<li>客户端将 r 用 As 进行加密，结果发送给服务器。</li>
+<li>服务器用 Bs 进行解密，获得 r。</li>
+<li>服务器进行 r xor p 的运算，获得 q。</li>
+<li>至此服务器和客户端都知道了会话密钥 q，以后的传输都将被 q 加密。</li>
+</ol>
+</li>
+<li>认证<ol>
+<li>服务器生成随机数 x，并用 Ac 加密后生成结果 S(x) ，发送给客户端。</li>
+<li>客户端使用 Bc 解密 S(x) 得到 x。</li>
+<li>客户端计算 q + x 的 md5 值 n(q+x)，q为上一步得到的会话密钥。</li>
+<li>服务器计算 q + x 的 md5 值 m(q+x)。</li>
+<li>客户端将 n(q+x) 发送给服务器。</li>
+<li>服务器比较 m(q+x) 和 n(q+x)，两者相同则认证成功。</li>
+</ol>
+</li>
+</ol>
+<h2 id="服务器端设置"><a href="#服务器端设置" class="headerlink" title="服务器端设置"></a>服务器端设置</h2><p>使用公钥认证需要对服务器进行一些设置，以下将以 Ubuntu 系统为例说明。<br>修改服务器端的 <code>/etc/ssh/sshd_config</code> 配置文件，确保以下配置开启：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RSAAuthentication yes        # 启用 RSA 认证</div><div class="line">PubkeyAuthentication yes     # 启用公钥认证</div><div class="line">PasswordAuthentication no    # 如果对服务器安全性要求比较高，可以设置用户只允许通过公钥认证，禁止用户用密码方式登录</div></pre></td></tr></table></figure>
+<p>然后重新启动 sshd：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo /etc/init.d/ssh restart</div></pre></td></tr></table></figure>
+<h2 id="客户端设置"><a href="#客户端设置" class="headerlink" title="客户端设置"></a>客户端设置</h2><p>假设客户端的用户 jerry 要以 tom 用户登录到服务器上。首先在客户端执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[jerry@client: ~] $ ssh-keygen -t rsa</div><div class="line">Generating public/private rsa1 key pair.</div><div class="line">Enter file in which to save the key (/home/jerry/.ssh/id_rsa):</div><div class="line">Enter passphrase (empty for no passphrase):  输入密码</div><div class="line">Enter same passphrase again:   再次输入密码</div><div class="line">Your identification has been sabed in /home/jerry/.ssh/id_rsa</div><div class="line">Your public key has been saved in /home/jerry/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
+<p>其中，<code>passphrase</code> 可以为空，如果为空，登录时将不需要密码。<br>生成的文件保存在主目录的 .ssh 目录下，<code>id_rsa</code> 为客户端密钥，<code>id_rsa.pub</code> 为客户端公钥。<br>之后，通过 scp 方式将公钥 <code>id_rsa.pub</code> 传到到服务器上，并执行下列命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[tom@server:~]$ cat id_rsa.pub &gt;&gt; .ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>其中 <code>id_rsa.pub</code> 是客户端的用户 jerry 的公钥。注意：</p>
+<ul>
+<li>.ssh 目录的权限是 700。</li>
+<li>.ssh/authorized_keys 文件权限是 600。</li>
+</ul>
+<p>这样在客户端即可通过以下的命令连接服务器（假设 server 的 ip 是 192.168.0.1）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[jerry@client:~]$ ssh tom@192.168.0.1</div></pre></td></tr></table></figure>
+<p>如果生成公钥的时候输入了密码，又不想每次登录服务器时都输入密码，可以先执行下列命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[jerry@client:~]$ ssh-add</div><div class="line">Enter passphrase for /home/jerry/.ssh/id_rsa: 输入密码</div><div class="line">Identity added: /home/jerry/.ssh/id_rsa (/home/jerry/.ssh/id_rsa)</div></pre></td></tr></table></figure>
+<p>以后登录服务器就不需要输入密码了。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/2011/03/29/使用-cURL-度量应用程序响应时间/" class="prev">PREV</a><a href="/2010/09/29/关于系统运维、开发设计的一些杂想/" class="next">NEXT</a></div><div data-thread-key="2010/11/01/SSH-公钥认证使用指南/" data-title="SSH 公钥认证使用指南" data-url="https://akuma.github.io/2010/11/01/SSH-公钥认证使用指南/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2009 - 2017 <a href="https://akuma.github.io">Akuma Huang</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

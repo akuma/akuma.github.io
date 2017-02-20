@@ -1,0 +1,188 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Memcached 客户端的几种 Hash 算法性能对比 · Coding Life</title><meta name="description" content="Memcached 客户端的几种 Hash 算法性能对比 - Akuma Huang"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://akuma.github.io/atom.xml" title="Coding Life"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/akuma" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Memcached 客户端的几种 Hash 算法性能对比</h1><div class="post-info">May 26, 2011</div><div class="post-content"><h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><p>在一台 Memcached 服务器上开启了 3 个不同端口的进程，Memcached 客户端以相同的权重访问这三个进程。</p>
+<p>测试客户端使用 2000 个并发线程，其中 1000 个执行 PUT 操作，另外 1000 个执行 GET 操作，每个线程中的 PUT 和 GET 操作均执行 1000 次。存入缓存的值为长度在 20 到 256 之间的随机字符串。</p>
+<a id="more"></a>
+<h3 id="机器配置表"><a href="#机器配置表" class="headerlink" title="机器配置表"></a>机器配置表</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">CPU</th>
+<th style="text-align:center">内存</th>
+<th style="text-align:center">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Memcached 服务端</td>
+<td style="text-align:center">Intel(R) Pentium(R) 4 CPU 1.80GHz</td>
+<td style="text-align:center">1G</td>
+<td style="text-align:center">192.168.1.174</td>
+</tr>
+<tr>
+<td style="text-align:center">测试客户端</td>
+<td style="text-align:center">Intel(R) Pentium(R) Dual-Core CPU E2210 2.2GHz</td>
+<td style="text-align:center">2.75G</td>
+<td style="text-align:center">192.168.0.68</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Memcached-进程启动参数"><a href="#Memcached-进程启动参数" class="headerlink" title="Memcached 进程启动参数"></a>Memcached 进程启动参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/usr/local/memcached/bin/memcached -u root -m 16 -l 192.168.1.174 -p 11212 -d -P /root/memcached_1.pid</div><div class="line">/usr/local/memcached/bin/memcached -u root -m 16 -l 192.168.1.174 -p 11213 -d -P /root/memcached_2.pid</div><div class="line">/usr/local/memcached/bin/memcached -u root -m 16 -l 192.168.1.174 -p 11214 -d -P /root/memcached_3.pid</div></pre></td></tr></table></figure>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">批次</th>
+<th style="text-align:center">通讯协议</th>
+<th style="text-align:center">哈希算法</th>
+<th style="text-align:center">200并发耗时 (ms)</th>
+<th style="text-align:center">2000并发耗时 (ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1547</td>
+<td style="text-align:center">127719</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1546</td>
+<td style="text-align:center">128313</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1531</td>
+<td style="text-align:center">127465</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2046</td>
+<td style="text-align:center">164797</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2015</td>
+<td style="text-align:center">170344</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2063</td>
+<td style="text-align:center">167788</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2625</td>
+<td style="text-align:center">238531</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2718</td>
+<td style="text-align:center">236359</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2641</td>
+<td style="text-align:center">232672</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1578</td>
+<td style="text-align:center">133639</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1547</td>
+<td style="text-align:center">137562</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1594</td>
+<td style="text-align:center">142497</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">177922</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2110</td>
+<td style="text-align:center">170917</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2078</td>
+<td style="text-align:center">165625</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2735</td>
+<td style="text-align:center">244797</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2859</td>
+<td style="text-align:center">231329</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2781</td>
+<td style="text-align:center">243453</td>
+</tr>
+</tbody>
+</table>
+<h2 id="测试结果分析"><a href="#测试结果分析" class="headerlink" title="测试结果分析"></a>测试结果分析</h2><ul>
+<li>毫无疑问，Native Hash（即使用 Java 中的 hashCode() 方法生成），在性能上是最优的，但是在多节点的情况下，增加、删除节点后，所有缓存全部会失效。</li>
+<li>Election Hash 因为对于每个节点都要进行一次 Hash 值计算来选举出可以存放内容的节点，所以在处理时间上会比 Ketama Hash 更耗时。</li>
+<li>在高并发、大批量操作下，二进制协议比文本协议在性能上会更优一些，但不是非常明显。</li>
+</ul>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
+<li>在只有一个 Memcached 节点的情况下，可以使用 Native Hash，这样性能最好。</li>
+<li>在有多个 Memcached 节点的情况下，一般优先采用 Ketama Hash，这样缓存一致性可以保证，性能也优于 Election Hash。</li>
+<li>一般来说倾向于优先使用二进制协议，性能上比文本协议好一些。</li>
+</ul>
+</div></article></div></section><footer><div class="paginator"><a href="/2011/09/01/如何禁用不常用的-HTTP-Method/" class="prev">PREV</a><a href="/2011/04/01/关于数据同步一致性问题的思考/" class="next">NEXT</a></div><div data-thread-key="2011/05/26/Memcached-客户端的几种-Hash-算法性能对比/" data-title="Memcached 客户端的几种 Hash 算法性能对比" data-url="https://akuma.github.io/2011/05/26/Memcached-客户端的几种-Hash-算法性能对比/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2009 - 2017 <a href="https://akuma.github.io">Akuma Huang</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

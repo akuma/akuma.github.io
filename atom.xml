@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Coding Life</title>
+  <subtitle>但行好事，莫问前程</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://akuma.github.io/"/>
+  <updated>2017-02-20T05:32:13.000Z</updated>
+  <id>https://akuma.github.io/</id>
+  
+  <author>
+    <name>Akuma Huang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>macOS 开发环境搭建笔记</title>
+    <link href="https://akuma.github.io/2017/01/05/macOS-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0/"/>
+    <id>https://akuma.github.io/2017/01/05/macOS-开发环境搭建笔记/</id>
+    <published>2017-01-05T04:44:31.000Z</published>
+    <updated>2017-02-20T05:32:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="初始准备工作"><a href="#初始准备工作" class="headerlink" title="初始准备工作"></a>初始准备工作</h2><h3 id="通过-AppStore-安装-XCode"><a href="#通过-AppStore-安装-XCode" class="headerlink" title="通过 AppStore 安装 XCode"></a>通过 AppStore 安装 XCode</h3><h3 id="修改-sudo-权限（管理员不需要输入密码）"><a href="#修改-sudo-权限（管理员不需要输入密码）" class="headerlink" title="修改 sudo 权限（管理员不需要输入密码）"></a>修改 sudo 权限（管理员不需要输入密码）</h3><p>打开 shell，执行 <code>sudo visudo</code>，修改以下部分内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%admin          ALL = (ALL) NOPASSWD: ALL</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="安装命令行工具"><a href="#安装命令行工具" class="headerlink" title="安装命令行工具"></a>安装命令行工具</h2><h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure>
+<h3 id="zsh-相关"><a href="#zsh-相关" class="headerlink" title="zsh 相关"></a>zsh 相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">brew install zsh zsh-completions</div><div class="line">sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</div></pre></td></tr></table></figure>
+<h3 id="安装-JDK"><a href="#安装-JDK" class="headerlink" title="安装 JDK"></a>安装 JDK</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew cask install java</div></pre></td></tr></table></figure>
+<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install maven</div></pre></td></tr></table></figure>
+<p>编辑文件 <code>$HOME/.m2/settings.xml</code>，修改成适合自己的内容（比如包含公司私服设置等）。</p>
+<h3 id="安装-NVM"><a href="#安装-NVM" class="headerlink" title="安装 NVM"></a>安装 NVM</h3><p><code>NVM</code> 是一个 Node.js 版本管理，通过它可以方便的切换 Node.js 版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash</div></pre></td></tr></table></figure>
+<h3 id="安装其他命令行工具"><a href="#安装其他命令行工具" class="headerlink" title="安装其他命令行工具"></a>安装其他命令行工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install autojump wget git git-extras diff-so-fancy mycli redis</div></pre></td></tr></table></figure>
+<p>一些工具说明：</p>
+<ul>
+<li>autojump：<a href="https://github.com/wting/autojump" target="_blank" rel="external">目录导航命令</a></li>
+<li>git-extras：<a href="https://github.com/tj/git-extras/blob/master/Commands.md" target="_blank" rel="external">git 扩展命令</a></li>
+<li>diff-so-fancy：<a href="https://github.com/so-fancy/diff-so-fancy" target="_blank" rel="external">更好看的 diff 工具</a></li>
+<li>mycli：<a href="https://github.com/dbcli/mycli" target="_blank" rel="external">MySQL 命令行客户端</a></li>
+</ul>
+<h3 id="修改-zsh-配置"><a href="#修改-zsh-配置" class="headerlink" title="修改 zsh 配置"></a>修改 zsh 配置</h3><p>编辑 <code>~/.zshrc</code>，添加如下内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Config zsh completions</span></div><div class="line">fpath=(/usr/<span class="built_in">local</span>/share/zsh-completions <span class="variable">$fpath</span>)</div><div class="line"></div><div class="line"><span class="comment"># Config autojump</span></div><div class="line">[ <span class="_">-f</span> /usr/<span class="built_in">local</span>/etc/profile.d/autojump.sh ] &amp;&amp; . /usr/<span class="built_in">local</span>/etc/profile.d/autojump.sh</div><div class="line"></div><div class="line"><span class="comment"># Config JAVA HOME</span></div><div class="line"><span class="built_in">export</span> JAVA_HOME=`/usr/libexec/java_home`</div><div class="line"></div><div class="line"><span class="comment"># Config NVM for Node.js</span></div><div class="line"><span class="built_in">export</span> NVM_HOME=<span class="string">"<span class="variable">$HOME</span>/.nvm"</span></div><div class="line"><span class="built_in">export</span> NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</div><div class="line"><span class="built_in">export</span> PHANTOMJS_CDNURL=http://npm.taobao.org/mirrors/phantomjs</div><div class="line"><span class="built_in">export</span> SELENIUM_CDNURL=http://npm.taobao.org/mirrorss/selenium</div><div class="line"><span class="built_in">export</span> CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver</div><div class="line">[ <span class="_">-s</span> <span class="string">"<span class="variable">$NVM_HOME</span>/nvm.sh"</span> ] &amp;&amp; . <span class="string">"<span class="variable">$NVM_HOME</span>/nvm.sh"</span></div></pre></td></tr></table></figure>
+<p><strong>注意</strong>：保存 zsh 配置后，需要执行 <code>source ~/.zshrc</code> 或重建 Shell 窗口才会生效。</p>
+<h3 id="配置-git"><a href="#配置-git" class="headerlink" title="配置 git"></a>配置 git</h3><p>编辑 <code>~/.gitconfig</code>，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">[user]</div><div class="line">    name = &lt;your name&gt;</div><div class="line">    email = &lt;your email&gt;</div><div class="line"></div><div class="line">[alias]</div><div class="line">    ci = commit -m</div><div class="line">    co = checkout</div><div class="line">    st = status</div><div class="line">    br = branch</div><div class="line">    wc = whatchanged</div><div class="line">    df = diff</div><div class="line">    pom = push origin master</div><div class="line">    unstage = reset HEAD</div><div class="line">    last = log -1 HEAD</div><div class="line">    sl = shortlog -s</div><div class="line">    lg = log -p</div><div class="line">    gl = log --all --graph --pretty=format:&apos;%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit --date=relative</div><div class="line">    praise = blame</div><div class="line"></div><div class="line">[core]</div><div class="line">    autocrlf = input</div><div class="line">    quotepath = false</div><div class="line">    ignorecase = false</div><div class="line">    pager = diff-so-fancy | less --tabs=4 -RFX</div><div class="line">    whitespace = trailing-space,space-before-tab,indent-with-non-tab</div><div class="line">    editor = /usr/bin/vim</div><div class="line"></div><div class="line">[merge]</div><div class="line">    ff = false</div><div class="line"></div><div class="line">[pull]</div><div class="line">    rebase = true</div><div class="line"></div><div class="line">[push]</div><div class="line">    default = matching</div><div class="line"></div><div class="line">[color]</div><div class="line">    status = auto</div><div class="line">    branch = auto</div><div class="line">    diff = auto</div><div class="line">    ui = true</div><div class="line">    pager = true</div><div class="line"></div><div class="line">[color &quot;branch&quot;]</div><div class="line">    current = green reverse</div><div class="line">    local = yellow</div><div class="line">    remote = red</div><div class="line"></div><div class="line">[color &quot;diff&quot;]</div><div class="line">    meta = yellow bold</div><div class="line">    frag = magenta bold</div><div class="line">    old = red bold</div><div class="line">    new = green bold</div><div class="line"></div><div class="line">[color &quot;status&quot;]</div><div class="line">    added = yellow bold</div><div class="line">    changed = red bold</div><div class="line">    untracked = white bold</div><div class="line"></div><div class="line">[color &quot;diff-highlight&quot;]</div><div class="line">    oldNormal = red bold</div><div class="line">    oldHighlight = red bold 52</div><div class="line">    newNormal = green bold</div><div class="line">    newHighlight = green bold 22</div></pre></td></tr></table></figure>
+<h2 id="安装-APP"><a href="#安装-APP" class="headerlink" title="安装 APP"></a>安装 APP</h2><h3 id="开发调试"><a href="#开发调试" class="headerlink" title="开发调试"></a>开发调试</h3><ul>
+<li>Atom（文本编辑器）</li>
+<li>IntelliJ IDEA（Java IDE）</li>
+<li>Postman（接口调试工具）</li>
+<li>GitKraken（Git 客户端）</li>
+<li>Charles（HTTP 抓包工具）</li>
+<li>Wireshark（TCP 抓包工具）</li>
+<li>Docker（Docker Mac 版）</li>
+</ul>
+<h3 id="生产效率"><a href="#生产效率" class="headerlink" title="生产效率"></a>生产效率</h3><ul>
+<li>Alfred</li>
+<li>1Password（密码管理）</li>
+<li>Spectacle（窗口管理）</li>
+<li>f.lux（显示器色温调整）</li>
+<li>MacDown（Markdown 编辑器）</li>
+<li>OmniGraffle（作图工具）</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;初始准备工作&quot;&gt;&lt;a href=&quot;#初始准备工作&quot; class=&quot;headerlink&quot; title=&quot;初始准备工作&quot;&gt;&lt;/a&gt;初始准备工作&lt;/h2&gt;&lt;h3 id=&quot;通过-AppStore-安装-XCode&quot;&gt;&lt;a href=&quot;#通过-AppStore-安装-XCode&quot; class=&quot;headerlink&quot; title=&quot;通过 AppStore 安装 XCode&quot;&gt;&lt;/a&gt;通过 AppStore 安装 XCode&lt;/h3&gt;&lt;h3 id=&quot;修改-sudo-权限（管理员不需要输入密码）&quot;&gt;&lt;a href=&quot;#修改-sudo-权限（管理员不需要输入密码）&quot; class=&quot;headerlink&quot; title=&quot;修改 sudo 权限（管理员不需要输入密码）&quot;&gt;&lt;/a&gt;修改 sudo 权限（管理员不需要输入密码）&lt;/h3&gt;&lt;p&gt;打开 shell，执行 &lt;code&gt;sudo visudo&lt;/code&gt;，修改以下部分内容：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;%admin          ALL = (ALL) NOPASSWD: ALL&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="macOS dev" scheme="https://akuma.github.io/tags/macOS-dev/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>阿里云 ECS 搭建正向代理</title>
+    <link href="https://akuma.github.io/2016/12/03/%E9%98%BF%E9%87%8C%E4%BA%91-ECS-%E6%90%AD%E5%BB%BA%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86/"/>
+    <id>https://akuma.github.io/2016/12/03/阿里云-ECS-搭建正向代理/</id>
+    <published>2016-12-03T04:30:06.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>目前公司的产品采用了多个 ECS 加 SLB 的方式负载均衡部署。出于节省成本和安全方面的考虑，我们只有一台作为 CDN 源站的 ECS 开通了外网带宽。</p>
+<a id="more"></a>
+<p>由于业务上有调用互联网 API 的需求（比如调用微信开放平台的接口），我用 Node.js 写了一个简单的 HTTP 正向代理，部署在开通外网带宽的 ECS 上。其他 ECS 调用互联网 API 时均通过这个代理进行，功能上虽然满足了但是性能不是很好。</p>
+<p>为了解决这个问题，我今天换了一种实现方案：在开通外网带宽的 ECS 上安装 <code>Squid</code> 实现正向代理。</p>
+<h2 id="安装、初始化和启动-Squid"><a href="#安装、初始化和启动-Squid" class="headerlink" title="安装、初始化和启动 Squid"></a>安装、初始化和启动 Squid</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo yum -y squid</div><div class="line">sudo squid -z</div><div class="line">sudo /etc/init.d/squid start</div></pre></td></tr></table></figure>
+<h2 id="测试-Squid"><a href="#测试-Squid" class="headerlink" title="测试 Squid"></a>测试 Squid</h2><p>在没有外网带宽的 ECS 添加配置文件 http-proxy.sh：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/profile.d/http-proxy.sh</div><div class="line">source /etc/profile.d/http-proxy.sh</div></pre></td></tr></table></figure>
+<p>文件内容如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line"></div><div class="line"><span class="built_in">export</span> http_proxy=http://proxy.server:3128</div><div class="line"><span class="built_in">export</span> https_proxy=http://proxy.server:3128</div></pre></td></tr></table></figure>
+<p>其中的 <code>proxy.server</code> 是作为 HTTP 代理的 ECS 服务器名称。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -v http://www.douban.com/</div></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">* About to connect() to proxy proxy.server port 3128 (#0)</div><div class="line">*   Trying xxx.xxx.xxx.xxx...</div><div class="line">* Connected to proxy.server (xxx.xxx.xxx.xxx) port 3128 (#0)</div><div class="line">&gt; GET http://www.douban.com/ HTTP/1.1</div><div class="line">&gt; User-Agent: curl/7.29.0</div><div class="line">&gt; Host: www.douban.com</div><div class="line">&gt; Accept: */*</div><div class="line">&gt; Proxy-Connection: Keep-Alive</div><div class="line">&gt;</div><div class="line">* HTTP 1.0, assume close after body</div><div class="line">&lt; HTTP/1.0 301 Moved Permanently</div><div class="line">&lt; Date: Sat, 03 Dec 2016 05:49:58 GMT</div><div class="line">&lt; Content-Type: text/html</div><div class="line">&lt; Content-Length: 178</div><div class="line">&lt; Location: https://www.douban.com/</div><div class="line">&lt; Server: dae</div><div class="line">&lt; X-Cache: MISS from proxy.server</div><div class="line">&lt; X-Cache-Lookup: MISS from proxy.server:3128</div><div class="line">&lt; Via: 1.0 proxy.server (squid/3.1.23)</div><div class="line">* HTTP/1.0 connection set to keep alive!</div><div class="line">&lt; Connection: keep-alive</div><div class="line">&lt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;&lt;title&gt;301 Moved Permanently&lt;/title&gt;&lt;/head&gt;</div><div class="line">&lt;body bgcolor=&quot;white&quot;&gt;</div><div class="line">&lt;center&gt;&lt;h1&gt;301 Moved Permanently&lt;/h1&gt;&lt;/center&gt;</div><div class="line">&lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">* Connection #0 to host proxy.server left intact</div></pre></td></tr></table></figure>
+<p>从结果中可以看出请求时通过 <code>proxy.server</code> 服务器完成的。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;目前公司的产品采用了多个 ECS 加 SLB 的方式负载均衡部署。出于节省成本和安全方面的考虑，我们只有一台作为 CDN 源站的 ECS 开通了外网带宽。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="阿里云 ecs proxy" scheme="https://akuma.github.io/tags/%E9%98%BF%E9%87%8C%E4%BA%91-ecs-proxy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Evermark 介绍</title>
+    <link href="https://akuma.github.io/2016/10/10/evermark-%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://akuma.github.io/2016/10/10/evermark-介绍/</id>
+    <published>2016-10-10T07:56:04.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/akuma/evermark" target="_blank" rel="external"><strong>Evermark</strong></a> 是我用 JavaScript 开发的命令行工具，支持以 Markdown 格式写 Evernote 笔记，简单实用。</p>
+<p>目前支持的特性如下：</p>
+<ul>
+<li>支持基于命令行添加、发布 Markdown 格式的笔记</li>
+<li>支持自动添加在笔记内容中指定的笔记本和标签</li>
+<li>支持发布或撤销某个目录下的所有 Markdown 笔记</li>
+<li>支持高亮代码块、图片引用、表格等</li>
+<li>支持任务列表</li>
+<li>支持数学公式</li>
+<li>支持流程图、序列图、甘特图</li>
+</ul>
+<a id="more"></a>
+<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g evermark</div></pre></td></tr></table></figure>
+<h2 id="命令说明"><a href="#命令说明" class="headerlink" title="命令说明"></a>命令说明</h2><h3 id="初始化-Evermark-文件夹"><a href="#初始化-Evermark-文件夹" class="headerlink" title="初始化 Evermark 文件夹"></a>初始化 Evermark 文件夹</h3><p>初始化 Evermark 文件夹，保存配置信息到 <code>evermark.json</code> 文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">evermark init &lt;destination&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li>首先根据提示选择你使用的是 Evernote International 还是印象笔记；</li>
+<li>然后在自动打开的网页里输入账号密码后生成 <code>developerToken</code> 并复制；</li>
+<li>最后根据提示粘贴刚刚复制的 <code>developerToken</code>。</li>
+</ol>
+<p><code>developerToken</code> 的生成链接：</p>
+<ul>
+<li><a href="https://www.evernote.com/api/DeveloperToken.action" target="_blank" rel="external">Evernote International</a></li>
+<li><a href="https://app.yinxiang.com/api/DeveloperToken.action" target="_blank" rel="external">印象笔记</a></li>
+</ul>
+<h3 id="查看或修改配置"><a href="#查看或修改配置" class="headerlink" title="查看或修改配置"></a>查看或修改配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">evermark config [name] [value]</div></pre></td></tr></table></figure>
+<h3 id="添加笔记文件"><a href="#添加笔记文件" class="headerlink" title="添加笔记文件"></a>添加笔记文件</h3><p>创建一个 markdown 文件，存放在 Evermark 文件夹的 <code>notes</code> 目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">evermark new &lt;title&gt;</div></pre></td></tr></table></figure>
+<h3 id="发布笔记"><a href="#发布笔记" class="headerlink" title="发布笔记"></a>发布笔记</h3><p>将 markdown 文件发布到 Evernote，对于已发布过的文件会采取更新操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">evermark publish &lt;file_or_directory&gt;</div></pre></td></tr></table></figure>
+<h3 id="撤销笔记"><a href="#撤销笔记" class="headerlink" title="撤销笔记"></a>撤销笔记</h3><p>在 Evernote 中删除 markdown 文件对应的笔记，markdown 文件不会删除。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">evermark unpublish &lt;file_or_directory&gt;</div></pre></td></tr></table></figure>
+<h3 id="查看帮助"><a href="#查看帮助" class="headerlink" title="查看帮助"></a>查看帮助</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">evermark <span class="built_in">help</span> [<span class="built_in">command</span>]</div></pre></td></tr></table></figure>
+<h2 id="Evermark-支持的-Markdown-语法"><a href="#Evermark-支持的-Markdown-语法" class="headerlink" title="Evermark 支持的 Markdown 语法"></a>Evermark 支持的 Markdown 语法</h2><h3 id="Headers"><a href="#Headers" class="headerlink" title="Headers"></a>Headers</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># H1</div><div class="line">## H2</div><div class="line">### H3</div><div class="line">#### H4</div><div class="line">##### H5</div><div class="line">###### H6</div></pre></td></tr></table></figure>
+<h3 id="Emphasis"><a href="#Emphasis" class="headerlink" title="Emphasis"></a>Emphasis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">*This text will be italic*</div><div class="line">_This will also be italic_</div><div class="line"></div><div class="line">**This text will be bold**</div><div class="line">__This will also be bold__</div><div class="line"></div><div class="line">~~This text will be crossed~~</div><div class="line"></div><div class="line">_You **can** combine ~~them~~_</div></pre></td></tr></table></figure>
+<h3 id="Sups-amp-Subs"><a href="#Sups-amp-Subs" class="headerlink" title="Sups &amp; Subs"></a>Sups &amp; Subs</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">19^th^</div><div class="line">H~2~O</div></pre></td></tr></table></figure>
+<h3 id="Emoji"><a href="#Emoji" class="headerlink" title="Emoji"></a>Emoji</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:smile: :heart: :sunny: :watermelon: :cn:</div></pre></td></tr></table></figure>
+<h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://github.com - automatic!</div><div class="line">[GitHub](http://github.com)</div></pre></td></tr></table></figure>
+<h3 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">As Kanye West said:</div><div class="line"></div><div class="line">&gt; We&apos;re living the future so</div><div class="line">&gt; the present is our past.</div></pre></td></tr></table></figure>
+<h3 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h3><h4 id="Unordered"><a href="#Unordered" class="headerlink" title="Unordered"></a>Unordered</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- Item 1</div><div class="line">- Item 2</div><div class="line">  - Item 2a</div><div class="line">  - Item 2b</div></pre></td></tr></table></figure>
+<h4 id="Ordered"><a href="#Ordered" class="headerlink" title="Ordered"></a>Ordered</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1. Item 1</div><div class="line">1. Item 2</div><div class="line">1. Item 3</div><div class="line">   - Item 3a</div><div class="line">   - Item 3b</div></pre></td></tr></table></figure>
+<h3 id="Task-Lists"><a href="#Task-Lists" class="headerlink" title="Task Lists"></a>Task Lists</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- [x] Write blog post with :heart:</div><div class="line">- [x] Create sample **gist**</div><div class="line">- [ ] Take screenshots for blog post</div></pre></td></tr></table></figure>
+<h3 id="Tables"><a href="#Tables" class="headerlink" title="Tables"></a>Tables</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">First Header | Second Header</div><div class="line">------------ | -------------</div><div class="line">Content from cell 1 | Content from cell 2</div><div class="line">Content in the first column | Content in the second column</div></pre></td></tr></table></figure>
+<h3 id="Images"><a href="#Images" class="headerlink" title="Images"></a>Images</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">![Image of Test](img/test.png &quot;Image of Test&quot;)</div><div class="line">![GitHub Logo](https://assets-cdn.github.com/images/modules/logos_page/Octocat.png &quot;GitHub Logo&quot;)</div></pre></td></tr></table></figure>
+<h3 id="Inline-Code"><a href="#Inline-Code" class="headerlink" title="Inline Code"></a>Inline Code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This is an inline code: `var example = true`</div></pre></td></tr></table></figure>
+<h3 id="Block-Code"><a href="#Block-Code" class="headerlink" title="Block Code"></a>Block Code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">```js</div><div class="line">console.log(&apos;Hello world!&apos;)</div><div class="line">```</div></pre></td></tr></table></figure>
+<h3 id="Diagrams"><a href="#Diagrams" class="headerlink" title="Diagrams"></a>Diagrams</h3><p>这部分功能使用 <a href="https://github.com/knsv/mermaid" target="_blank" rel="external">Mermaid</a> 实现，具体可以参考它的<a href="http://knsv.github.io/mermaid/" target="_blank" rel="external">文档</a>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">graph LR</div><div class="line">  A--&gt;B</div><div class="line">  B--&gt;C</div><div class="line">  C--&gt;A</div><div class="line">  D--&gt;C</div><div class="line">```</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">sequenceDiagram</div><div class="line">  Alice-&gt;&gt;John: Hello John, how are you?</div><div class="line">  John--&gt;&gt;Alice: Great!</div><div class="line">```</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">gantt</div><div class="line">  title A Gantt Diagram</div><div class="line"></div><div class="line">  section Section</div><div class="line">  A task           :a1, 2014-01-01, 30d</div><div class="line">  Another task     :after a1  , 20d</div><div class="line">  section Another</div><div class="line">  Task in sec      :2014-01-12  , 12d</div><div class="line">  anther task      : 24d</div><div class="line">```</div></pre></td></tr></table></figure>
+<h3 id="Math-Equations"><a href="#Math-Equations" class="headerlink" title="Math Equations"></a>Math Equations</h3><h4 id="Inline-Equations"><a href="#Inline-Equations" class="headerlink" title="Inline Equations"></a>Inline Equations</h4><p>When $a \ne 0$, there are two solutions to $ax^2 + bx + c = 0$ and they are<br>$x = {-b \pm \sqrt {b^2-4ac} \over 2a}$.</p>
+<h4 id="Block-Equations"><a href="#Block-Equations" class="headerlink" title="Block Equations"></a>Block Equations</h4><p>$$<br>\displaystyle \left( \sum_{k=1}^n a_k b<em>k \right)^2 \leq<br>\left( \sum</em>{k=1}^n a<em>k^2 \right) \left( \sum</em>{k=1}^n b_k^2 \right)<br>$$</p>
+<h3 id="Raw-HTML"><a href="#Raw-HTML" class="headerlink" title="Raw HTML"></a>Raw HTML</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div style=&quot;color: red;&quot;&gt;This is a &lt;strong&gt;html&lt;/strong&gt; code.&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h3 id="Notebooks-amp-Tags"><a href="#Notebooks-amp-Tags" class="headerlink" title="Notebooks &amp; Tags"></a>Notebooks &amp; Tags</h3><ul>
+<li><strong>Evermark</strong> 自动使用文档内出现的第一个标题作为笔记标题。</li>
+<li><strong>Evermark</strong> 支持 <code>@(笔记本)[标签A|标签B]</code> 语法, 以选择笔记本和添加标签。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/akuma/evermark&quot;&gt;&lt;strong&gt;Evermark&lt;/strong&gt;&lt;/a&gt; 是我用 JavaScript 开发的命令行工具，支持以 Markdown 格式写 Evernote 笔记，简单实用。&lt;/p&gt;
+&lt;p&gt;目前支持的特性如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持基于命令行添加、发布 Markdown 格式的笔记&lt;/li&gt;
+&lt;li&gt;支持自动添加在笔记内容中指定的笔记本和标签&lt;/li&gt;
+&lt;li&gt;支持发布或撤销某个目录下的所有 Markdown 笔记&lt;/li&gt;
+&lt;li&gt;支持高亮代码块、图片引用、表格等&lt;/li&gt;
+&lt;li&gt;支持任务列表&lt;/li&gt;
+&lt;li&gt;支持数学公式&lt;/li&gt;
+&lt;li&gt;支持流程图、序列图、甘特图&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="evernote markdown" scheme="https://akuma.github.io/tags/evernote-markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 include 指令简化 Nginx 配置</title>
+    <link href="https://akuma.github.io/2013/11/02/%E4%BD%BF%E7%94%A8-include-%E6%8C%87%E4%BB%A4%E7%AE%80%E5%8C%96-Nginx-%E9%85%8D%E7%BD%AE/"/>
+    <id>https://akuma.github.io/2013/11/02/使用-include-指令简化-Nginx-配置/</id>
+    <published>2013-11-02T08:03:59.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在查看公司生产环境的 nginx 配置文件时，经常可以看到大段重复的代码，导致修改一个相同的配置，往往要同时修改好几个地方（比如使用了多个虚拟主机的情况），可维护性非常差。</p>
+<a id="more"></a>
+<p>上述问题其实可以很简单的通过 include 指令来简化配置文件，下面就通过一个配置文件的例子来说明如何简化配置。</p>
+<h2 id="简化前的配置-conf-nginx-conf"><a href="#简化前的配置-conf-nginx-conf" class="headerlink" title="简化前的配置 conf/nginx.conf"></a>简化前的配置 conf/nginx.conf</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">user</span>              nobody nobody;</div><div class="line"><span class="attribute">worker_processes</span>  <span class="number">4</span>;</div><div class="line"></div><div class="line"><span class="attribute">pid</span>               logs/nginx.pid;</div><div class="line"><span class="attribute">error_log</span>         logs/error.log <span class="literal">error</span>;</div><div class="line"></div><div class="line"><span class="section">events</span> &#123;</div><div class="line">    <span class="attribute">use</span>                 <span class="literal">epoll</span>;</div><div class="line">    <span class="attribute">worker_connections</span>  <span class="number">1024</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="section">http</span> &#123;</div><div class="line">    <span class="attribute">include</span>           mime.types;</div><div class="line">    <span class="attribute">include</span>           proxy.conf;</div><div class="line"></div><div class="line">    <span class="attribute">sendfile</span>          <span class="literal">on</span>;</div><div class="line">    <span class="attribute">tcp_nopush</span>        <span class="literal">on</span>;</div><div class="line">    <span class="attribute">tcp_nodelay</span>       <span class="literal">off</span>;</div><div class="line">    <span class="attribute">keepalive_timeout</span> <span class="number">0</span>;</div><div class="line">    <span class="attribute">default_type</span>      application/octet-stream;</div><div class="line"></div><div class="line">    <span class="attribute">upstream</span> backend &#123;</div><div class="line">        <span class="attribute">server</span>        <span class="number">192.168.1.188:8080</span> srun_id=c1 weight=<span class="number">1</span>;</div><div class="line">        <span class="attribute">jvm_route</span>     <span class="variable">$cookie_JSESSIONID</span> reverse;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="section">server</span> &#123;</div><div class="line">        <span class="attribute">listen</span>        <span class="number">80</span>;</div><div class="line">        <span class="attribute">server_name</span>   foo.com;</div><div class="line">        <span class="attribute">index</span>         index.html index.htm;</div><div class="line">        <span class="attribute">access_log</span>    logs/access.log;</div><div class="line"></div><div class="line">        <span class="attribute">location</span> / &#123;</div><div class="line">            <span class="attribute">proxy_pass</span> http://backend;</div><div class="line">            <span class="attribute">proxy_redirect</span>              <span class="literal">off</span>;</div><div class="line">            <span class="attribute">proxy_set_header</span>            Host            <span class="variable">$host</span>;</div><div class="line">            <span class="attribute">proxy_set_header</span>            X-Real-IP       <span class="variable">$remote_addr</span>;</div><div class="line">            <span class="attribute">proxy_set_header</span>            X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">            <span class="attribute">client_max_body_size</span>        <span class="number">50M</span>;</div><div class="line">            <span class="attribute">client_body_buffer_size</span>     <span class="number">256k</span>;</div><div class="line">            <span class="attribute">proxy_connect_timeout</span>       <span class="number">600</span>;</div><div class="line">            <span class="attribute">proxy_send_timeout</span>          <span class="number">300</span>;</div><div class="line">            <span class="attribute">proxy_read_timeout</span>          <span class="number">300</span>;</div><div class="line">            <span class="attribute">proxy_buffer_size</span>           <span class="number">4k</span>;</div><div class="line">            <span class="attribute">proxy_buffers</span>               <span class="number">4</span> <span class="number">32k</span>;</div><div class="line">            <span class="attribute">proxy_busy_buffers_size</span>     <span class="number">64k</span>;</div><div class="line">            <span class="attribute">proxy_temp_file_write_size</span>  <span class="number">64k</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="attribute">location</span> /status &#123;</div><div class="line">            <span class="attribute">stub_status</span>    <span class="literal">on</span>;</div><div class="line">            <span class="attribute">access_log</span>     <span class="literal">off</span>;</div><div class="line">            <span class="attribute">allow</span>          all;</div><div class="line">            <span class="attribute">deny</span>           all;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用-include-指令简化配置文件"><a href="#使用-include-指令简化配置文件" class="headerlink" title="使用 include 指令简化配置文件"></a>使用 include 指令简化配置文件</h2><h3 id="抽取-proxy-设置到单独文件中（conf-proxy-conf）"><a href="#抽取-proxy-设置到单独文件中（conf-proxy-conf）" class="headerlink" title="抽取 proxy 设置到单独文件中（conf/proxy.conf）"></a>抽取 proxy 设置到单独文件中（<code>conf/proxy.conf</code>）</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">proxy_redirect</span>              <span class="literal">off</span>;</div><div class="line"><span class="attribute">proxy_set_header</span>            Host            <span class="variable">$host</span>;</div><div class="line"><span class="attribute">proxy_set_header</span>            X-Real-IP       <span class="variable">$remote_addr</span>;</div><div class="line"><span class="attribute">proxy_set_header</span>            X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line"><span class="attribute">client_max_body_size</span>        <span class="number">50M</span>;</div><div class="line"><span class="attribute">client_body_buffer_size</span>     <span class="number">256k</span>;</div><div class="line"><span class="attribute">proxy_connect_timeout</span>       <span class="number">600</span>;</div><div class="line"><span class="attribute">proxy_send_timeout</span>          <span class="number">300</span>;</div><div class="line"><span class="attribute">proxy_read_timeout</span>          <span class="number">300</span>;</div><div class="line"><span class="attribute">proxy_buffer_size</span>           <span class="number">4k</span>;</div><div class="line"><span class="attribute">proxy_buffers</span>               <span class="number">4</span> <span class="number">32k</span>;</div><div class="line"><span class="attribute">proxy_busy_buffers_size</span>     <span class="number">64k</span>;</div><div class="line"><span class="attribute">proxy_temp_file_write_size</span>  <span class="number">64k</span>;</div></pre></td></tr></table></figure>
+<h3 id="抽取-status-设置到单独文件中（conf-status-conf）"><a href="#抽取-status-设置到单独文件中（conf-status-conf）" class="headerlink" title="抽取 status 设置到单独文件中（conf/status.conf）"></a>抽取 status 设置到单独文件中（<code>conf/status.conf</code>）</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">location</span> /status &#123;</div><div class="line">    <span class="attribute">stub_status</span>    <span class="literal">on</span>;</div><div class="line">    <span class="attribute">access_log</span>     <span class="literal">off</span>;</div><div class="line">    <span class="attribute">allow</span>          all;</div><div class="line">    <span class="attribute">deny</span>           all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="抽取杂项配置到单独文件中（conf-misc-conf）"><a href="#抽取杂项配置到单独文件中（conf-misc-conf）" class="headerlink" title="抽取杂项配置到单独文件中（conf/misc.conf）"></a>抽取杂项配置到单独文件中（<code>conf/misc.conf</code>）</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">sendfile</span>          <span class="literal">on</span>;</div><div class="line"><span class="attribute">tcp_nopush</span>        <span class="literal">on</span>;</div><div class="line"><span class="attribute">tcp_nodelay</span>       <span class="literal">off</span>;</div><div class="line"><span class="attribute">keepalive_timeout</span> <span class="number">0</span>;</div><div class="line"><span class="attribute">default_type</span>      application/octet-stream;</div></pre></td></tr></table></figure>
+<h3 id="最终简化后的配置"><a href="#最终简化后的配置" class="headerlink" title="最终简化后的配置"></a>最终简化后的配置</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">user</span>              nobody nobody;</div><div class="line"><span class="attribute">worker_processes</span>  <span class="number">4</span>;</div><div class="line"></div><div class="line"><span class="attribute">pid</span>               logs/nginx.pid;</div><div class="line"><span class="attribute">error_log</span>         logs/error.log <span class="literal">error</span>;</div><div class="line"></div><div class="line"><span class="section">events</span> &#123;</div><div class="line">    <span class="attribute">use</span>                 <span class="literal">epoll</span>;</div><div class="line">    <span class="attribute">worker_connections</span>  <span class="number">1024</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="section">http</span> &#123;</div><div class="line">    <span class="attribute">include</span>   mime.types;</div><div class="line">    <span class="attribute">include</span>   proxy.conf;</div><div class="line">    <span class="attribute">incluee</span>   misc.conf;</div><div class="line"></div><div class="line">    <span class="attribute">upstream</span> backend &#123;</div><div class="line">        <span class="attribute">server</span>      <span class="number">192.168.1.188:8080</span> srun_id=c1 weight=<span class="number">1</span>;</div><div class="line">        <span class="attribute">jvm_route</span>   <span class="variable">$cookie_JSESSIONID</span> reverse;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="section">server</span> &#123;</div><div class="line">        <span class="attribute">listen</span>      <span class="number">80</span>;</div><div class="line">        <span class="attribute">server_name</span> foo.com;</div><div class="line">        <span class="attribute">charset</span>     utf-<span class="number">8</span>;</div><div class="line">        <span class="attribute">index</span>       index.html index.htm;</div><div class="line">        <span class="attribute">access_log</span>  logs/access.log;</div><div class="line"></div><div class="line">        <span class="attribute">location</span> / &#123;</div><div class="line">            <span class="attribute">proxy_pass</span> http://backend;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="attribute">include</span>     status.conf;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在查看公司生产环境的 nginx 配置文件时，经常可以看到大段重复的代码，导致修改一个相同的配置，往往要同时修改好几个地方（比如使用了多个虚拟主机的情况），可维护性非常差。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="nginx" scheme="https://akuma.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>几种 Linux 发行版的网络配置</title>
+    <link href="https://akuma.github.io/2013/07/07/%E5%87%A0%E7%A7%8D-Linux-%E5%8F%91%E8%A1%8C%E7%89%88%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
+    <id>https://akuma.github.io/2013/07/07/几种-Linux-发行版的网络配置/</id>
+    <published>2013-07-07T07:30:50.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Linux 有很多的发行版本，而这些发行版本对于同一个功能的配置，往往会有一些不同。就拿网络配置来说，不同的版本就很不相同。本文对 Redhat、Ubuntu、Arch 等版本的 Hostname、IP、DNS、IPv6 配置 分别做一下说明。</p>
+<a id="more"></a>
+<p>为了方便描述，假设目前需要修改的各个值如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Hostname</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">Gateway</th>
+<th style="text-align:center">DNS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">demo-server</td>
+<td style="text-align:center">192.168.0.10</td>
+<td style="text-align:center">192.168.0.1</td>
+<td style="text-align:center">8.8.8.8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="配置-hostname"><a href="#配置-hostname" class="headerlink" title="配置 hostname"></a>配置 hostname</h2><h3 id="通用配置"><a href="#通用配置" class="headerlink" title="通用配置"></a>通用配置</h3><p>修改 <code>/etc/hosts</code>，添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">127.0.0.1      localhost.localdomain   localhost demo-server</div><div class="line">192.168.0.10   localhost               demo-server</div></pre></td></tr></table></figure>
+<h3 id="Redhat-额外配置"><a href="#Redhat-额外配置" class="headerlink" title="Redhat 额外配置"></a>Redhat 额外配置</h3><p>修改 <code>/etc/sysconfig/network</code>，将 <code>HOSTNAME</code> 设置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HOSTNAME=demo-server</div></pre></td></tr></table></figure>
+<h3 id="Arch-额外配置"><a href="#Arch-额外配置" class="headerlink" title="Arch 额外配置"></a>Arch 额外配置</h3><p>修改 <code>/etc/rc.conf</code>，将 <code>HOSTNAME</code> 设置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HOSTNAME=&quot;demo-server&quot;</div></pre></td></tr></table></figure>
+<h2 id="配置-IP"><a href="#配置-IP" class="headerlink" title="配置 IP"></a>配置 IP</h2><h3 id="Redhat-配置"><a href="#Redhat-配置" class="headerlink" title="Redhat 配置"></a>Redhat 配置</h3><p>修改 <code>/etc/sysconfig/network-script</code>，添加如下内容（二选一）：</p>
+<ul>
+<li>静态 IP</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DEVICE=eth0</div><div class="line">BOOTPROTO=static</div><div class="line">BROADCAST=192.168.0.255</div><div class="line">IPADDR=192.168.0.10</div><div class="line">NETMASK=255.255.255.0</div><div class="line">GATEWAY=192.168.0.254</div><div class="line">ONBOOT=on</div></pre></td></tr></table></figure>
+<ul>
+<li>动态 IP</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DEVICE=eth0</div><div class="line">BOOTPROTO=dbcp</div><div class="line">ONBOOT=on</div></pre></td></tr></table></figure>
+<h3 id="Ubunt-配置"><a href="#Ubunt-配置" class="headerlink" title="Ubunt 配置"></a>Ubunt 配置</h3><p>修改 <code>/etc/network/interface</code>，添加如下内容（二选一）：</p>
+<ul>
+<li>静态 IP</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">auto eth0</div><div class="line">iface eth0 inet static</div><div class="line">address 192.168.0.10</div><div class="line">netmask 255.255.255.0</div><div class="line">gateway 192.168.0.1</div></pre></td></tr></table></figure>
+<ul>
+<li>动态 IP</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">auto eth0</div><div class="line">iface eth0 inet dbcp</div></pre></td></tr></table></figure>
+<h3 id="Arch-配置"><a href="#Arch-配置" class="headerlink" title="Arch 配置"></a>Arch 配置</h3><p>修改 <code>/etc/rc.conf</code>，添加如下内容（二选一）：</p>
+<ul>
+<li>静态 IP</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">interface=eth0</div><div class="line">address=192.168.0.10</div><div class="line">netmask=255.255.255.0</div><div class="line">gateway=192.168.0.1</div></pre></td></tr></table></figure>
+<ul>
+<li>动态 IP</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">interface=eth0</div><div class="line">address=</div><div class="line">netmask=</div><div class="line">gateway=</div></pre></td></tr></table></figure>
+<h2 id="配置-DNS"><a href="#配置-DNS" class="headerlink" title="配置 DNS"></a>配置 DNS</h2><p>DNS 配置都通用。</p>
+<p>修改 <code>/etc/resolve.conf</code>，添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nameserver 8.8.8.8</div></pre></td></tr></table></figure>
+<h2 id="关闭-IPv6"><a href="#关闭-IPv6" class="headerlink" title="关闭 IPv6"></a>关闭 IPv6</h2><p>一般现在很多 Linux 默认将 IPv6 开启。但实际目前 IPv4 仍然是主流，而且对于我们来说，在开发测试中并不需要 IPv6，因此可以关闭。</p>
+<h3 id="Redhat-配置-1"><a href="#Redhat-配置-1" class="headerlink" title="Redhat 配置"></a>Redhat 配置</h3><p>修改 <code>/etc/sysconfig/network</code>，将 <code>NETWORKING_IPV6</code> 设置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NETWORKING_IPV6=no</div></pre></td></tr></table></figure>
+<h3 id="Ubuntu-配置"><a href="#Ubuntu-配置" class="headerlink" title="Ubuntu 配置"></a>Ubuntu 配置</h3><p>修改 <code>/etc/sysctl.conf</code>，添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">net.ipv6.conf.all.disable_ipv6 = 1</div><div class="line">net.ipv6.conf.default.disable_ipv6 = 1</div><div class="line">net.ipv6.conf.lo.disable_ipv6 = 1</div></pre></td></tr></table></figure>
+<p>最后执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sysctl -p</div></pre></td></tr></table></figure>
+<h3 id="Arch-配置-1"><a href="#Arch-配置-1" class="headerlink" title="Arch 配置"></a>Arch 配置</h3><h4 id="方法一：关闭模块（模块不加载）"><a href="#方法一：关闭模块（模块不加载）" class="headerlink" title="方法一：关闭模块（模块不加载）"></a>方法一：关闭模块（模块不加载）</h4><p>修改 <code>/etc/modprobe.d/modprobe.conf</code>，添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># disable autoload of ipv6</div><div class="line">alias net-pf-10 off</div></pre></td></tr></table></figure>
+<h4 id="方法二：关闭功能（模块仍然加载）"><a href="#方法二：关闭功能（模块仍然加载）" class="headerlink" title="方法二：关闭功能（模块仍然加载）"></a>方法二：关闭功能（模块仍然加载）</h4><p>修改 <code>/etc/modprobe.d/modprobe.conf</code>，添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">options ipv6 disable=1</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Linux 有很多的发行版本，而这些发行版本对于同一个功能的配置，往往会有一些不同。就拿网络配置来说，不同的版本就很不相同。本文对 Redhat、Ubuntu、Arch 等版本的 Hostname、IP、DNS、IPv6 配置 分别做一下说明。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux network" scheme="https://akuma.github.io/tags/linux-network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用 DFA 实现敏感词汇过滤</title>
+    <link href="https://akuma.github.io/2013/03/15/%E7%94%A8-DFA-%E5%AE%9E%E7%8E%B0%E6%95%8F%E6%84%9F%E8%AF%8D%E6%B1%87%E8%BF%87%E6%BB%A4/"/>
+    <id>https://akuma.github.io/2013/03/15/用-DFA-实现敏感词汇过滤/</id>
+    <published>2013-03-15T06:54:32.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>因为项目需要重写了一个简单的过滤敏感词汇的工具类，因为使用了 <code>DFA</code> 算法，所以比较高效。具体实现时在 DFA 算法基础上做了一些改进，如英文词汇的检测改造：单词 <code>have</code> 不会检测出 <code>av</code>，而单词 <code>av</code> 则能检测到。</p>
+<a id="more"></a>
+<h2 id="具体的使用方法"><a href="#具体的使用方法" class="headerlink" title="具体的使用方法"></a>具体的使用方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String content = <span class="string">"敏感词汇"</span>; <span class="comment">// 这是需要过滤的文本</span></div><div class="line">List&lt;String&gt; tabooedList = TabooedUtils.getTabooedWords(content); <span class="comment">// 这是过滤出来的敏感词汇列表</span></div></pre></td></tr></table></figure>
+<p>另外，如果想自己定义敏感词汇，可以在项目的 src 下面建立一个名为 tabooed.words 的敏感词汇文件。文件内容为每行一个敏感词，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">zhuanfalun</div><div class="line">bitch</div><div class="line">三个代表</div><div class="line">一党</div><div class="line">多党</div></pre></td></tr></table></figure>
+<p>这样 <code>TabooedUtils</code> 就会使用自定义的词汇文件，而不用框架中默认的文件。</p>
+<p>敏感词汇会在工具类 <code>TabooedUtils</code> 被 JVM 加载的时候载入并缓存。如果想临时修改词汇文件而又不想重启应用就生效，可以在程序中调用 reload 敏感词汇文件的方法，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TabooedUtils.reloadTabooedWords(); // 重新加载 tabooed.words 文件</div><div class="line">String content = &quot;敏感词汇&quot;; // 这是需要过滤的文本</div><div class="line">List&lt;String&gt; tabooedList = TabooedUtils.getTabooedWords(content); // 这是过滤出来的敏感词汇列表</div></pre></td></tr></table></figure>
+<h2 id="关于性能"><a href="#关于性能" class="headerlink" title="关于性能"></a>关于性能</h2><p>根据初步的测试结果，在 1000 多敏感词汇的情况下，连续过滤 1378 字的文章 1000 次，耗时 200 ms。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://www.iteye.com/topic/336577/" target="_blank" rel="external">使用 DFA 实现文字过滤</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/dfa" target="_blank" rel="external">维基百科 DFA</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因为项目需要重写了一个简单的过滤敏感词汇的工具类，因为使用了 &lt;code&gt;DFA&lt;/code&gt; 算法，所以比较高效。具体实现时在 DFA 算法基础上做了一些改进，如英文词汇的检测改造：单词 &lt;code&gt;have&lt;/code&gt; 不会检测出 &lt;code&gt;av&lt;/code&gt;，而单词 &lt;code&gt;av&lt;/code&gt; 则能检测到。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="dfa 词汇过滤" scheme="https://akuma.github.io/tags/dfa-%E8%AF%8D%E6%B1%87%E8%BF%87%E6%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Servlet Filter 实现页面缓存</title>
+    <link href="https://akuma.github.io/2012/09/18/%E4%BD%BF%E7%94%A8-Servlet-Filter-%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/"/>
+    <id>https://akuma.github.io/2012/09/18/使用-Servlet-Filter-实现页面缓存/</id>
+    <published>2012-09-18T06:08:21.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在公司内部基础库中用 filter 实现了一个简单的页面缓存组件。和数据缓存相比，这种过滤器方式的缓存粒度更粗一些，但性能更好一些，特别适用于那些数据更新不是很频繁的页面。当然，这个组件适合小项目中使用，大型项目还是应该用 nginx 或者缓存中间件来处理页面缓存。</p>
+<a id="more"></a>
+<p>在实际使用中，内容缓存可以和数据缓存搭配使用，这种使用方式其实很能够体现缓存应该是分层次的思想。例如缓存的层次可以如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">浏览器缓存 -&gt; Web 服务器缓存 -&gt; 应用内容缓存 -&gt; 应用数据缓存 -&gt; 数据库缓存</div></pre></td></tr></table></figure>
+<h2 id="Spring-中需要添加的配置"><a href="#Spring-中需要添加的配置" class="headerlink" title="Spring 中需要添加的配置"></a>Spring 中需要添加的配置</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cacheFilter"</span> <span class="attr">class</span>=<span class="string">"demo.CacheFilter"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"time"</span> <span class="attr">value</span>=<span class="string">"43200"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cache"</span> <span class="attr">ref</span>=<span class="string">"cacheBean"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cacheManager"</span> <span class="attr">ref</span>=<span class="string">"cacheManager"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>可用参数解释：</p>
+<ul>
+<li>time：缓存过期时间，以秒为单位</li>
+<li>cache：引用的缓存类</li>
+<li>cacheManager：引用的缓存管理类</li>
+</ul>
+<h2 id="web-xml-中需要添加的配置"><a href="#web-xml-中需要添加的配置" class="headerlink" title="web.xml 中需要添加的配置"></a>web.xml 中需要添加的配置</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>cacheFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.DelegatingFilterProxy<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>targetFilterLifecycle<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>targetBeanName<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>cacheFilter<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>lastModified<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>initial<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>expires<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>14400<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>max-age<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>14400<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>enable<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>pattern<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>^/cachedPage.htm$<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>cacheFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>可用参数解释：</p>
+<ul>
+<li>lastModified：是否在响应中设置 Last-Modified 头，可选值：off（不添加）、on（交由其他模块处理）、initial（系统自动生成）</li>
+<li>expires：是否在响应中设置 Expires 头，可选值：off（不添加）、on（交由其他模块处理）、time（具体的过期时间，以秒为单位）</li>
+<li>max-age：是否在响应中设置 Cache-Control 头，具体的过期时间，以秒为单位</li>
+<li>enable：是否开启缓存过滤器</li>
+<li>pattern：允许被缓存的页面的 URI 正则表达式</li>
+</ul>
+<p>上述配置中，只针对页面 <code>/cachedPage.htm</code> 的内容进行缓存，并且设置 <code>Last-Modified</code> 由系统自动生成，客户端缓存有效时间为 4 小时。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在公司内部基础库中用 filter 实现了一个简单的页面缓存组件。和数据缓存相比，这种过滤器方式的缓存粒度更粗一些，但性能更好一些，特别适用于那些数据更新不是很频繁的页面。当然，这个组件适合小项目中使用，大型项目还是应该用 nginx 或者缓存中间件来处理页面缓存。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="java servlet filter cache performance" scheme="https://akuma.github.io/tags/java-servlet-filter-cache-performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Servlet Filter 动态添加 html 代码</title>
+    <link href="https://akuma.github.io/2012/08/08/%E4%BD%BF%E7%94%A8-Servlet-Filter-%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0-html-%E4%BB%A3%E7%A0%81/"/>
+    <id>https://akuma.github.io/2012/08/08/使用-Servlet-Filter-动态添加-html-代码/</id>
+    <published>2012-08-08T13:39:34.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近一个同事问我，怎么快速实现在一个老系统的页面上统一添加用于页面性能分析的 JavaScript 脚本。确实，老系统这么多页面，如果一个一个去修改是非常费时而且笨的做法。</p>
+<a id="more"></a>
+<p>我想了一下，写了一个 Servlet Filter，可以实现在 HTTP 响应内容中的某个节点（比如 <code>&lt;/body&gt;</code> ）前添加 HTML 代码，优雅的解决了这个问题。</p>
+<h2 id="使用样例"><a href="#使用样例" class="headerlink" title="使用样例"></a>使用样例</h2><h3 id="插入-html-代码的类"><a href="#插入-html-代码的类" class="headerlink" title="插入 html 代码的类"></a>插入 html 代码的类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> demo;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 继承 HtmlContentProvider，实现提供插入内容的方法。</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HtmlContentProviderImpl</span> <span class="keyword">implements</span> <span class="title">HtmlContentProvider</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"&lt;div style=\"display:none\"&gt;"</span></div><div class="line">                + <span class="string">"&lt;script src=\"http://s16.cnzz.com/stat.php?id=xxxxxxx&amp;web_id=xxxxxxx\""</span></div><div class="line">                + <span class="string">" language=\"javascript\"&gt;&lt;/script&gt;&lt;/div&gt;"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Spring-配置"><a href="#Spring-配置" class="headerlink" title="Spring 配置"></a>Spring 配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"htmlContentAppendFilter"</span> <span class="attr">class</span>=<span class="string">"demo.HtmlContentAppendFilter"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 插入代码的节点名称，本例是 &lt;/head&gt;，表示将代码添加到 &lt;/head&gt; 节点之前 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"htmlNode"</span> <span class="attr">value</span>=<span class="string">"&amp;lt;/head&amp;gt;"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 在响应内容中查找节点时，是否采用反向查找的方式，本例采用正向查找 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"reverseLookup"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 定义需要进行过滤的 requestPath 的正则表达式，本例只过滤 .htm 后缀请求 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"includes"</span> <span class="attr">value</span>=<span class="string">".+\.htm"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 定义需要忽略过滤的 requestPath 的正则表达式，本例排除对 ReplyAction 请求的过滤 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"excludes"</span> <span class="attr">value</span>=<span class="string">"/.+/remote.+"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 提供 HTML 代码的实现类，该内容会被添加到指定节点之前 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"htmlContentProvider"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"demo.HtmlContentProviderImpl"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="web-xml-配置"><a href="#web-xml-配置" class="headerlink" title="web.xml 配置"></a>web.xml 配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>htmlContentAppendFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.DelegatingFilterProxy<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>targetBeanName<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>htmlContentAppendFilter<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>htmlContentAppendFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.htm<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样，对于所有的 <code>.htm</code> 请求，只要响应消息中包含了 <code>&lt;/head&gt;</code> 节点，都会自动添加 <code>HtmlContentProviderImpl.getContent(request)</code> 中返回的内容，即一段 CNZZ 脚本。</p>
+<h2 id="性能和不足之处"><a href="#性能和不足之处" class="headerlink" title="性能和不足之处"></a>性能和不足之处</h2><p>在使用此过滤器和不使用此过滤器的情况下，对常规的页面（1M 以内）做了压力测试，发现吞吐量相差不大，基本可以忽略添加过滤器的影响。对于数据量比较大的页面，比如超过 1M 的页面，那么可能比较服务器消耗内存，同时在查找节点时速度也会慢一些，从而对页面性能造成一些影响。从另外一方面来说，出于性能的考虑，也应该尽可能保持页面小一些，超过 100K 的页面都值得考虑是否只能这么大。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近一个同事问我，怎么快速实现在一个老系统的页面上统一添加用于页面性能分析的 JavaScript 脚本。确实，老系统这么多页面，如果一个一个去修改是非常费时而且笨的做法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="java servlet filter http" scheme="https://akuma.github.io/tags/java-servlet-filter-http/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从日志文件中抓取 SQL 语句的脚本</title>
+    <link href="https://akuma.github.io/2012/05/04/%E4%BB%8E%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E4%B8%AD%E6%8A%93%E5%8F%96-SQL-%E8%AF%AD%E5%8F%A5%E7%9A%84%E8%84%9A%E6%9C%AC/"/>
+    <id>https://akuma.github.io/2012/05/04/从日志文件中抓取-SQL-语句的脚本/</id>
+    <published>2012-05-04T04:45:14.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>为了获取系统日志中的 SQL 语句并进行性能分析，我写了一个简单的 python 脚本，用于从日志中抓取 SQL。</p>
+<a id="more"></a>
+<p>简单特性：</p>
+<ul>
+<li>语法相同参数不同的 SQL 会只保留一条。</li>
+<li>默认输出到控制台，如果希望保存到文件可以采用重定向命令。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="comment">#coding=utf-8</span></div><div class="line"><span class="comment"># A python script for extracting sql statments from file then print them to console.</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">__version__ = <span class="string">"0.2"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_sqls</span><span class="params">(filenames, for_explain=False)</span>:</span></div><div class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> filenames:</div><div class="line">        extract_sql(filename, for_explain)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_sql</span><span class="params">(filename, for_explain=False)</span>:</span></div><div class="line">    <span class="string">'''Extract sql statments from the file and print them to std.'''</span></div><div class="line"></div><div class="line">    f = <span class="keyword">None</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        f = file(filename)</div><div class="line">    <span class="keyword">except</span> IOError:</div><div class="line">        <span class="keyword">print</span> <span class="string">'%s: %s: No such file'</span> % (sys.argv[<span class="number">0</span>], filename)</div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">'\n%s&gt; %s &lt;%s\n'</span> % (<span class="string">'='</span> * <span class="number">25</span>, filename, <span class="string">'='</span> * <span class="number">25</span>)</div><div class="line">    sql_set = set()</div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        line = f.readline()</div><div class="line">        <span class="keyword">if</span> len(line) == <span class="number">0</span>:</div><div class="line">            <span class="keyword">break</span></div><div class="line"></div><div class="line">        <span class="comment"># If the string is a dml sql, then record it</span></div><div class="line">        explain_sql_pres = [<span class="string">'(^| )(SELECT )'</span>, <span class="string">'(^| )(UPDATE )'</span>, <span class="string">'(^| )(DELETE )'</span>]</div><div class="line">        all_sql_pres = explain_sql_pres + [<span class="string">'(^| )(INSERT INTO )'</span>]</div><div class="line">        sql_pres = explain_sql_pres <span class="keyword">if</span> for_explain <span class="keyword">is</span> <span class="keyword">True</span> <span class="keyword">else</span> all_sql_pres</div><div class="line">        <span class="keyword">for</span> sql_pre <span class="keyword">in</span> sql_pres:</div><div class="line">            m = re.search(sql_pre, line, re.I)</div><div class="line">            <span class="keyword">if</span> m <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">                <span class="keyword">break</span></div><div class="line"></div><div class="line">        <span class="comment"># If the string is not a dml sql, ignore it</span></div><div class="line">        <span class="keyword">if</span> m <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">            <span class="keyword">continue</span></div><div class="line"></div><div class="line">        raw_sql = line[m.start(<span class="number">2</span>):<span class="number">-1</span>]</div><div class="line">        base_sql = re.sub(<span class="string">"'.*'|\d+"</span>, <span class="string">'?'</span>, raw_sql)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> for_explain <span class="keyword">is</span> <span class="keyword">True</span>:</div><div class="line">            <span class="keyword">if</span> base_sql <span class="keyword">not</span> <span class="keyword">in</span> sql_set:</div><div class="line">                sql_set.add(base_sql)</div><div class="line">                print_sql(raw_sql)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            print_sql(raw_sql)</div><div class="line"></div><div class="line">    f.close()</div><div class="line">    <span class="keyword">print</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_sql</span><span class="params">(sql)</span>:</span></div><div class="line">    <span class="keyword">if</span> sql[<span class="number">-1</span>] == <span class="string">';'</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'%s'</span> % sql</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'%s;'</span> % sql</div><div class="line"></div><div class="line"><span class="comment"># Script starts from here</span></div><div class="line"><span class="keyword">if</span> len(sys.argv) &lt; <span class="number">2</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'''\</span></div><div class="line">%s: too few arguments</div><div class="line">Try `%s --help\' for more information.''' % (sys.argv[<span class="number">0</span>], sys.argv[<span class="number">0</span>])</div><div class="line">    sys.exit()</div><div class="line"></div><div class="line"><span class="keyword">if</span> sys.argv[<span class="number">1</span>].startswith(<span class="string">'--'</span>):</div><div class="line">    option = sys.argv[<span class="number">1</span>][<span class="number">2</span>:]</div><div class="line">    <span class="comment"># Fetch sys.argv[1] but without the first two characters</span></div><div class="line">    <span class="keyword">if</span> option == <span class="string">'for-explain'</span>:</div><div class="line">        extract_sqls(sys.argv[<span class="number">2</span>:], <span class="keyword">True</span>)</div><div class="line">    <span class="keyword">elif</span> option == <span class="string">'version'</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'sql_extractor'</span>, __version__</div><div class="line">        sys.exit()</div><div class="line">    <span class="keyword">elif</span> option == <span class="string">'help'</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'''</span></div><div class="line">Usage: %s [OPTION] FILE...</div><div class="line">Extract sql statments from file then print them to console.</div><div class="line"></div><div class="line">Options include:</div><div class="line">  --for-explain    Only print one sql for which with different parameters</div><div class="line">  --version        Prints the version number</div><div class="line">  --help           Display this help''' % sys.argv[<span class="number">0</span>]</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'''\</span></div><div class="line">%s: invalid option -- %s</div><div class="line">Try `%s --help\' for more information.''' % (sys.argv[<span class="number">0</span>], option, sys.argv[<span class="number">0</span>])</div><div class="line">        sys.exit()</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    extract_sqls(sys.argv[<span class="number">1</span>:])</div></pre></td></tr></table></figure>
+<p>使用举例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./sql_extractor.py app.log &gt; app.sql</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;为了获取系统日志中的 SQL 语句并进行性能分析，我写了一个简单的 python 脚本，用于从日志中抓取 SQL。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="python sql log" scheme="https://akuma.github.io/tags/python-sql-log/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何给 LVM 的逻辑分区增加空间</title>
+    <link href="https://akuma.github.io/2012/02/27/%E5%A6%82%E4%BD%95%E7%BB%99-LVM-%E7%9A%84%E9%80%BB%E8%BE%91%E5%88%86%E5%8C%BA%E5%A2%9E%E5%8A%A0%E7%A9%BA%E9%97%B4/"/>
+    <id>https://akuma.github.io/2012/02/27/如何给-LVM-的逻辑分区增加空间/</id>
+    <published>2012-02-27T14:22:19.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用 LVM 的好处就是可以在不重启系统的前提下方便的动态调整 Linux 分区大小，这对服务器来特别好用。下面我以工作中用到的一台开发服务器 192.168.0.222 为例进行说明。</p>
+<a id="more"></a>
+<p>先用 <code>df -h</code> 命令查看磁盘分区使用情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ df -h</div></pre></td></tr></table></figure>
+<p>显示结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">Filesystem            Size  Used Avail Use% Mounted on</div><div class="line">/dev/mapper/ubuntu--builder-root</div><div class="line">                      220G  690M  208G   1% /</div><div class="line">none                  1.8G  188K  1.8G   1% /dev</div><div class="line">none                  1.9G     0  1.9G   0% /dev/shm</div><div class="line">none                  1.9G   72K  1.9G   1% /var/run</div><div class="line">none                  1.9G     0  1.9G   0% /var/lock</div><div class="line">/dev/mapper/nvidia_acfacaaf1</div><div class="line">                      228M   64M  153M  30% /boot</div><div class="line">/dev/mapper/ubuntu--builder-tmp</div><div class="line">                      2.0G   90M  1.8G   5% /tmp</div><div class="line">/dev/mapper/ubuntu--builder-usr</div><div class="line">                      9.9G  4.1G  5.3G  44% /usr</div><div class="line">/dev/mapper/ubuntu--builder-home</div><div class="line">                      9.9G  1.3G  8.2G  14% /home</div><div class="line">/dev/mapper/ubuntu--builder-opt</div><div class="line">                       99G   93G  992M  99% /opt</div><div class="line">/dev/mapper/ubuntu--builder-var</div><div class="line">                      9.9G  2.2G  7.3G  23% /var</div></pre></td></tr></table></figure>
+<p>我们发现 /opt 分区只有 99% 了，需要马上增大空间。<br>出于安全考虑，最好将所有相关的服务停止之后再操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo /etc/init.d/mysql stop</div><div class="line">$ sudo /etc/init.d/proftpd stop</div><div class="line">$ sudo /etc/init.d/apache stop</div><div class="line">$ sudo /etc/init.d/bind9 stop</div><div class="line">$ killall -9 java</div></pre></td></tr></table></figure>
+<p>之后执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo lvextend -L200G /dev/ubuntu-builder/opt</div></pre></td></tr></table></figure>
+<p>我们先将 /opt 扩展到 200G，然后我们需要将 /opt <code>umount</code> 之后再调整大小：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo umount /dev/ubuntu-builder/opt</div><div class="line">$ sudo resize2fs /dev/ubuntu-builder/opt</div><div class="line">$ sudo mount /dev/ubuntu-builder/opt /opt</div></pre></td></tr></table></figure>
+<p>最后我们再运行 <code>df -h</code> 命令查看，结果显示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">Filesystem            Size  Used Avail Use% Mounted on</div><div class="line">/dev/mapper/ubuntu--builder-root</div><div class="line">                      220G  690M  208G   1% /</div><div class="line">none                  1.8G  188K  1.8G   1% /dev</div><div class="line">none                  1.9G     0  1.9G   0% /dev/shm</div><div class="line">none                  1.9G   72K  1.9G   1% /var/run</div><div class="line">none                  1.9G     0  1.9G   0% /var/lock</div><div class="line">/dev/mapper/nvidia_acfacaaf1</div><div class="line">                      228M   64M  153M  30% /boot</div><div class="line">/dev/mapper/ubuntu--builder-tmp</div><div class="line">                      2.0G   90M  1.8G   5% /tmp</div><div class="line">/dev/mapper/ubuntu--builder-usr</div><div class="line">                      9.9G  4.1G  5.3G  44% /usr</div><div class="line">/dev/mapper/ubuntu--builder-home</div><div class="line">                      9.9G  1.3G  8.2G  14% /home</div><div class="line">/dev/mapper/ubuntu--builder-opt</div><div class="line">                      197G   93G   95G  50% /opt</div><div class="line">/dev/mapper/ubuntu--builder-var</div><div class="line">                      9.9G  2.2G  7.3G  23% /var</div></pre></td></tr></table></figure>
+<p>成功了！</p>
+<p>最后把停止的服务重新启动即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo /etc/init.d/mysql start</div><div class="line">$ sudo /etc/init.d/proftpd start</div><div class="line">$ sudo /etc/init.d/apache start</div><div class="line">$ sudo /etc/init.d/bind9 start</div><div class="line">$ $CATALINA_HOME/bin/tm start</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用 LVM 的好处就是可以在不重启系统的前提下方便的动态调整 Linux 分区大小，这对服务器来特别好用。下面我以工作中用到的一台开发服务器 192.168.0.222 为例进行说明。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux lvm" scheme="https://akuma.github.io/tags/linux-lvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SVN 迁移到 Git 的方法</title>
+    <link href="https://akuma.github.io/2012/01/08/SVN-%E8%BF%81%E7%A7%BB%E5%88%B0-Git-%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>https://akuma.github.io/2012/01/08/SVN-迁移到-Git-的方法/</id>
+    <published>2012-01-08T07:44:18.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>工作中需要将一个老的 SVN 库迁移到 Git，网上收集了一些操作方法，总结出来备忘一下。</p>
+<a id="more"></a>
+<h2 id="创建-user-txt"><a href="#创建-user-txt" class="headerlink" title="创建 user.txt"></a>创建 user.txt</h2><p>通过以下命令获得 Subversion 代码库的作者列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn log --xml | grep author | sort -u | perl -pe &apos;s/.&gt;(.?)&lt;./$1 = /&apos;</div></pre></td></tr></table></figure>
+<p>在此输出结果的基础之上，创建 <code>user.txt</code> 文件，将 Subversion 中的用户映射到 Git 中的提交者。为 <code>git svn</code> 提供该文件可以使它更精确的映射作者数据，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">akuma = Huang Weijia &lt;ihuangwj@gmail.net&gt;</div></pre></td></tr></table></figure>
+<h2 id="执行-git-svn-clone-命令"><a href="#执行-git-svn-clone-命令" class="headerlink" title="执行 git svn clone 命令"></a>执行 git svn clone 命令</h2><p>在 <code>git svn clone</code> 后面添加 <code>--no-metadata</code> 来阻止 <code>git svn</code> 包含那些 Subversion 的附加信息。<br>可以指定 <code>-s</code> 参数来告诉 Git 该 Subversion 仓库遵循了基本的分支和标签命名法则，即：<code>trunk/branches/tags</code></p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git svn clone http://server/svn/repos/demo/ --authors-file=user.txt --no-metadata -s demo</div></pre></td></tr></table></figure>
+<h2 id="clone-后的清理工作"><a href="#clone-后的清理工作" class="headerlink" title="clone 后的清理工作"></a>clone 后的清理工作</h2><p>最后一步要清理一下 <code>git svn</code> 创建的那些怪异的索引结构。</p>
+<p>首先要移动标签，把它们从奇怪的远程分支变成实际的标签，然后把剩下的分支移动到本地。进入到刚刚 clone 的项目跟目录下执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf .git/refs/remotes/tags/* .git/refs/tags/</div><div class="line">$ rm -Rf .git/refs/remotes/tags</div></pre></td></tr></table></figure>
+<p>该命令将原本以 <code>tag/</code> 开头的远程分支的索引变成真正的（轻巧的）标签。</p>
+<p>接下来，把 <code>refs/remotes</code> 下面剩下的索引变成本地分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf .git/refs/remotes/* .git/refs/heads/</div><div class="line">$ rm -Rf .git/refs/remotes</div></pre></td></tr></table></figure>
+<p>现在所有的旧分支都变成真正的 Git 分支，所有的旧标签也变成真正的 Git 标签。</p>
+<p>最后一项工作就是把新建的 Git 服务器添加为远程服务器并且向它推送。下面是新增远程服务器的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin git@server:demo.git</div></pre></td></tr></table></figure>
+<p>为了让所有的分支和标签都得到上传，使用这条命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git push origin --all</div></pre></td></tr></table></figure>
+<p>现在，所有的分支和标签都应该整齐干净的躺在新的 Git 服务器里了。</p>
+<h2 id="用户授权"><a href="#用户授权" class="headerlink" title="用户授权"></a>用户授权</h2><p>生成公钥，然后添加到 Git 服务器的 <code>authorized_keys</code> 文件中，示例命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat /tmp/id_rsa.akuma.pub &gt;&gt; ~/.ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>关于公钥认证参考：<a href="../../../../2010/11/01/SSH-公钥认证使用指南/">SSH 公钥认证使用指南</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://progit.org/book/zh/" target="_blank" rel="external">Pro Git</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;工作中需要将一个老的 SVN 库迁移到 Git，网上收集了一些操作方法，总结出来备忘一下。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="git svn" scheme="https://akuma.github.io/tags/git-svn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 中 Shell 特殊变量的含义解释</title>
+    <link href="https://akuma.github.io/2011/12/29/Linux-%E4%B8%AD-Shell-%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%AB%E4%B9%89%E8%A7%A3%E9%87%8A/"/>
+    <id>https://akuma.github.io/2011/12/29/Linux-中-Shell-特殊变量的含义解释/</id>
+    <published>2011-12-29T10:14:45.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>经常忘记一些 shell 特殊变量的含义，所以写在这里备忘一下。</p>
+<a id="more"></a>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">变量名</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$?</td>
+<td style="text-align:center">最后运行的命令的结束代码（返回值）</td>
+</tr>
+<tr>
+<td style="text-align:center">$*</td>
+<td style="text-align:center">所有参数列表。如 “$*” 用「”」括起来的情况、以 “$1 $2 … $n” 的形式输出所有参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$@</td>
+<td style="text-align:center">所有参数列表。如 “$@” 用「”」括起来的情况、以 “$1” “$2” … “$n” 的形式输出所有参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$#</td>
+<td style="text-align:center">添加到 Shell 的参数个数</td>
+</tr>
+<tr>
+<td style="text-align:center">$0</td>
+<td style="text-align:center">Shell 本身的文件名</td>
+</tr>
+<tr>
+<td style="text-align:center">$1-$n</td>
+<td style="text-align:center">添加到 Shell 的各参数值。$1 是第 1 参数、$2 是第 2 参数…。</td>
+</tr>
+<tr>
+<td style="text-align:center">$-</td>
+<td style="text-align:center">使用 Set 命令设定的 Flag 一览</td>
+</tr>
+<tr>
+<td style="text-align:center">$_</td>
+<td style="text-align:center">保存之前执行的命令的最后一个参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$!</td>
+<td style="text-align:center">Shell 最后运行的后台 Process 的 PID</td>
+</tr>
+<tr>
+<td style="text-align:center">$$</td>
+<td style="text-align:center">Shell 本身的 PID（ProcessID）</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;经常忘记一些 shell 特殊变量的含义，所以写在这里备忘一下。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux shell" scheme="https://akuma.github.io/tags/linux-shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于 IE6 处理压缩 JavaScript 的 Bug</title>
+    <link href="https://akuma.github.io/2011/10/18/%E5%85%B3%E4%BA%8E-IE6-%E5%A4%84%E7%90%86%E5%8E%8B%E7%BC%A9-JavaScript-%E7%9A%84-Bug/"/>
+    <id>https://akuma.github.io/2011/10/18/关于-IE6-处理压缩-JavaScript-的-Bug/</id>
+    <published>2011-10-18T04:01:37.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>为了提高客户端 javascript 文件的加载速度，我们将所有的 javascript 代码通过 nginx、tomcat 等进行 gzip 压缩后再发给浏览器。这样原来可能 200 KB 多的脚本文件压缩后之只有 30 KB 多，浏览加载速度提高之后，用户体验就会更好。</p>
+<p>但是最近工作中遇到了奇怪的问题，在 IE7、Firefox、Chrome 等浏览器下运行的非常良好的脚本到了 IE6 下有时候就会没有反应，需要刷新网页后才脚本才能运行。</p>
+<a id="more"></a>
+<p>Google 之后发现微软的官方文档里对 IE6 有提到一点：”Do not enable HTTP compression for the script files”。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>如果应用程序只采用了 <code>tomcat</code> 部署，那么可以通过配置 Connector，只关闭对 IE6 的 javascript 压缩。<br>以下是一个以 <code>Http11NioProtocol Connector</code> 为例的配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"80"</span> <span class="attr">protocol</span>=<span class="string">"org.apache.coyote.http11.Http11NioProtocol"</span></span></div><div class="line">           <span class="attr">maxHttpHeaderSize</span>=<span class="string">"8192"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span></div><div class="line">           <span class="attr">enableLookups</span>=<span class="string">"false"</span> <span class="attr">useBodyEncodingForURI</span>=<span class="string">"true"</span></div><div class="line">           <span class="attr">connectionTimeout</span>=<span class="string">"30000"</span> <span class="attr">disableUploadTimeout</span>=<span class="string">"true"</span></div><div class="line">           <span class="attr">maxThreads</span>=<span class="string">"500"</span> <span class="attr">acceptCount</span>=<span class="string">"1000"</span></div><div class="line">           <span class="attr">compression</span>=<span class="string">"on"</span> <span class="attr">compressionMinSize</span>=<span class="string">"2048"</span></div><div class="line">           <span class="attr">noCompressionUserAgents</span>=<span class="string">"gozilla, traviata, .*MSIE [1-6].*"</span></div><div class="line">           <span class="attr">compressableMimeType</span>=<span class="string">"text/html,text/xml,text/javascript,text/css,text/plain"</span> /&gt;</div></pre></td></tr></table></figure>
+<p>如果应用程序采用了 <code>nginx + tomcat</code> 部署，那么可以通过以下配置只关闭对 IE6 的 javascript 压缩。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">gzip_types</span>    text/plain text/css  text/xml application/xml application/xml+rss application/x-javascript text/javascript;</div><div class="line"><span class="attribute">gzip_disable</span>  <span class="string">".*MSIE [1-6].*"</span>;</div></pre></td></tr></table></figure>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>虽然 IE6 在国外已经被埋葬了，但国内仍然有大量的用户在使用它，做为 Web 开发人员的我们仍需要对它有足够的认识。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;为了提高客户端 javascript 文件的加载速度，我们将所有的 javascript 代码通过 nginx、tomcat 等进行 gzip 压缩后再发给浏览器。这样原来可能 200 KB 多的脚本文件压缩后之只有 30 KB 多，浏览加载速度提高之后，用户体验就会更好。&lt;/p&gt;
+&lt;p&gt;但是最近工作中遇到了奇怪的问题，在 IE7、Firefox、Chrome 等浏览器下运行的非常良好的脚本到了 IE6 下有时候就会没有反应，需要刷新网页后才脚本才能运行。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript bug ie" scheme="https://akuma.github.io/tags/javascript-bug-ie/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何禁用不常用的 HTTP Method</title>
+    <link href="https://akuma.github.io/2011/09/01/%E5%A6%82%E4%BD%95%E7%A6%81%E7%94%A8%E4%B8%8D%E5%B8%B8%E7%94%A8%E7%9A%84-HTTP-Method/"/>
+    <id>https://akuma.github.io/2011/09/01/如何禁用不常用的-HTTP-Method/</id>
+    <published>2011-09-01T07:07:42.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>出于安全性的考虑，我们想要屏蔽掉客户端以 OPTIONS、TRACE、HEAD、DELETE、PUT 等方式请求 Web 应用，只保留最常用的 GET、POST。</p>
+<a id="more"></a>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="修改-nginx-配置文件"><a href="#修改-nginx-配置文件" class="headerlink" title="修改 nginx 配置文件"></a>修改 nginx 配置文件</h3><p>nginx 里设置这个比较简单，只需要在 <code>location</code> 节点中添加如下配置即可：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">limit_except</span> GET POST &#123;</div><div class="line">  <span class="attribute">deny</span>   all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果想要对个别 IP 开放，可以这样设置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">limit_except</span> GET POST &#123;</div><div class="line">  <span class="attribute">allow</span>  <span class="number">192.168.1.0</span>/<span class="number">32</span>; <span class="comment"># 对客户端 192.168.1.0 - 192.168.1.32 开放</span></div><div class="line">  <span class="attribute">deny</span>   all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>具体可以参考 nginx 文档：<a href="http://wiki.nginx.org/NginxHttpCoreModule#limit_except" target="_blank" rel="external">http://wiki.nginx.org/NginxHttpCoreModule#limit_except</a></p>
+</blockquote>
+<p>这种方式适用于应用系统是通过 nginx 做反向代理访问的情况，同时后端的 tomcat 不暴露外网 IP。</p>
+<p>经过测试，对于只要允许 GET、POST 请求，HEAD 请求也是支持的，所以这种方式无法在允许 GET、POST 的前提下屏蔽 HEAD。</p>
+<h3 id="修改-tomcat（或应用系统）的-web-xml"><a href="#修改-tomcat（或应用系统）的-web-xml" class="headerlink" title="修改 tomcat（或应用系统）的 web.xml"></a>修改 tomcat（或应用系统）的 web.xml</h3><p>如果是 tomcat 直接暴露外网 IP 的情况，那么只能通过修改 <code>web.xml</code> 来实现屏蔽相关 method 的请求。<br>在 <code>web.xml</code> 中添加如下代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">security-constraint</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">web-resource-collection</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">web-resource-name</span>&gt;</span>disabledMethods<span class="tag">&lt;/<span class="name">web-resource-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>TRACE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>OPTIONS<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>HEAD<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>PUT<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>DELETE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">web-resource-collection</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">auth-constraint</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">security-constraint</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样应用系统就只会接受 GET、POST 方式的请求了。</p>
+<p>经过测试，如果 <code>&lt;security-constraint&gt;</code> 中没有 <code>&lt;auth-constraint&gt;</code> 子元素的话，配置实际上是不起中用的。<br>如果加入了 <code>&lt;auth-constraint&gt;</code> 子元素，但是其内容为空，这表示所有身份的用户都被禁止访问相应的资源。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;目的&quot;&gt;&lt;a href=&quot;#目的&quot; class=&quot;headerlink&quot; title=&quot;目的&quot;&gt;&lt;/a&gt;目的&lt;/h2&gt;&lt;p&gt;出于安全性的考虑，我们想要屏蔽掉客户端以 OPTIONS、TRACE、HEAD、DELETE、PUT 等方式请求 Web 应用，只保留最常用的 GET、POST。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="http" scheme="https://akuma.github.io/tags/http/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Memcached 客户端的几种 Hash 算法性能对比</title>
+    <link href="https://akuma.github.io/2011/05/26/Memcached-%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E5%87%A0%E7%A7%8D-Hash-%E7%AE%97%E6%B3%95%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94/"/>
+    <id>https://akuma.github.io/2011/05/26/Memcached-客户端的几种-Hash-算法性能对比/</id>
+    <published>2011-05-26T11:34:01.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><p>在一台 Memcached 服务器上开启了 3 个不同端口的进程，Memcached 客户端以相同的权重访问这三个进程。</p>
+<p>测试客户端使用 2000 个并发线程，其中 1000 个执行 PUT 操作，另外 1000 个执行 GET 操作，每个线程中的 PUT 和 GET 操作均执行 1000 次。存入缓存的值为长度在 20 到 256 之间的随机字符串。</p>
+<a id="more"></a>
+<h3 id="机器配置表"><a href="#机器配置表" class="headerlink" title="机器配置表"></a>机器配置表</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">CPU</th>
+<th style="text-align:center">内存</th>
+<th style="text-align:center">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Memcached 服务端</td>
+<td style="text-align:center">Intel(R) Pentium(R) 4 CPU 1.80GHz</td>
+<td style="text-align:center">1G</td>
+<td style="text-align:center">192.168.1.174</td>
+</tr>
+<tr>
+<td style="text-align:center">测试客户端</td>
+<td style="text-align:center">Intel(R) Pentium(R) Dual-Core CPU E2210 2.2GHz</td>
+<td style="text-align:center">2.75G</td>
+<td style="text-align:center">192.168.0.68</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Memcached-进程启动参数"><a href="#Memcached-进程启动参数" class="headerlink" title="Memcached 进程启动参数"></a>Memcached 进程启动参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/usr/local/memcached/bin/memcached -u root -m 16 -l 192.168.1.174 -p 11212 -d -P /root/memcached_1.pid</div><div class="line">/usr/local/memcached/bin/memcached -u root -m 16 -l 192.168.1.174 -p 11213 -d -P /root/memcached_2.pid</div><div class="line">/usr/local/memcached/bin/memcached -u root -m 16 -l 192.168.1.174 -p 11214 -d -P /root/memcached_3.pid</div></pre></td></tr></table></figure>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">批次</th>
+<th style="text-align:center">通讯协议</th>
+<th style="text-align:center">哈希算法</th>
+<th style="text-align:center">200并发耗时 (ms)</th>
+<th style="text-align:center">2000并发耗时 (ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1547</td>
+<td style="text-align:center">127719</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1546</td>
+<td style="text-align:center">128313</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1531</td>
+<td style="text-align:center">127465</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2046</td>
+<td style="text-align:center">164797</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2015</td>
+<td style="text-align:center">170344</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2063</td>
+<td style="text-align:center">167788</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2625</td>
+<td style="text-align:center">238531</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2718</td>
+<td style="text-align:center">236359</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Binary</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2641</td>
+<td style="text-align:center">232672</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1578</td>
+<td style="text-align:center">133639</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1547</td>
+<td style="text-align:center">137562</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Native</td>
+<td style="text-align:center">1594</td>
+<td style="text-align:center">142497</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">177922</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2110</td>
+<td style="text-align:center">170917</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Ketama</td>
+<td style="text-align:center">2078</td>
+<td style="text-align:center">165625</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2735</td>
+<td style="text-align:center">244797</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2859</td>
+<td style="text-align:center">231329</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:center">Election</td>
+<td style="text-align:center">2781</td>
+<td style="text-align:center">243453</td>
+</tr>
+</tbody>
+</table>
+<h2 id="测试结果分析"><a href="#测试结果分析" class="headerlink" title="测试结果分析"></a>测试结果分析</h2><ul>
+<li>毫无疑问，Native Hash（即使用 Java 中的 hashCode() 方法生成），在性能上是最优的，但是在多节点的情况下，增加、删除节点后，所有缓存全部会失效。</li>
+<li>Election Hash 因为对于每个节点都要进行一次 Hash 值计算来选举出可以存放内容的节点，所以在处理时间上会比 Ketama Hash 更耗时。</li>
+<li>在高并发、大批量操作下，二进制协议比文本协议在性能上会更优一些，但不是非常明显。</li>
+</ul>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
+<li>在只有一个 Memcached 节点的情况下，可以使用 Native Hash，这样性能最好。</li>
+<li>在有多个 Memcached 节点的情况下，一般优先采用 Ketama Hash，这样缓存一致性可以保证，性能也优于 Election Hash。</li>
+<li>一般来说倾向于优先使用二进制协议，性能上比文本协议好一些。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;测试用例&quot;&gt;&lt;a href=&quot;#测试用例&quot; class=&quot;headerlink&quot; title=&quot;测试用例&quot;&gt;&lt;/a&gt;测试用例&lt;/h2&gt;&lt;p&gt;在一台 Memcached 服务器上开启了 3 个不同端口的进程，Memcached 客户端以相同的权重访问这三个进程。&lt;/p&gt;
+&lt;p&gt;测试客户端使用 2000 个并发线程，其中 1000 个执行 PUT 操作，另外 1000 个执行 GET 操作，每个线程中的 PUT 和 GET 操作均执行 1000 次。存入缓存的值为长度在 20 到 256 之间的随机字符串。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="cache memcached performance hash" scheme="https://akuma.github.io/tags/cache-memcached-performance-hash/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于数据同步一致性问题的思考</title>
+    <link href="https://akuma.github.io/2011/04/01/%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%9D%E8%80%83/"/>
+    <id>https://akuma.github.io/2011/04/01/关于数据同步一致性问题的思考/</id>
+    <published>2011-04-01T12:43:52.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><p>按照目前公司产品中数据同步采用的发布订阅的规则，假设以下的场景：</p>
+<ol>
+<li>在 A 系统中将某条学生记录 stu_0 做了修改：stu_0 -&gt; stu_A1，并将修改后的记录发送到了 MQ 中。</li>
+<li>在 B 系统接收到 MQ 中的 A1 之前，B 系统也将学生记录 stu_0 做了修改：修改为 stu_B1 并发送到了 MQ 中。</li>
+<li>现在在 MQ 中有两条记录需要同步，按 FIFO 顺序为 stu_A1、stu_B1。</li>
+<li>A 系统接收到 stu_B1，做了修改：stu_A1 -&gt; stu_B1。</li>
+<li>B 系统接收到 stu_A1，做了修改：stu_B1 -&gt; stu_A1。</li>
+<li>C 系统接收到 stu_A1、stu_B1，做了修改：stu_0 -&gt; stu_A1 -&gt; stu_B1。</li>
+</ol>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">-------------------</div><div class="line">|        A        |</div><div class="line">-------------------</div><div class="line">|                 |</div><div class="line">| stu_0 -&gt; stu_A1 |</div><div class="line">|                 |</div><div class="line">-------------------</div><div class="line">                                       RabbitMQ</div><div class="line">                                   (-----------------)</div><div class="line">                     ==========&gt;   ( stu_B1 | stu_A1 )</div><div class="line">                                   (-----------------)</div><div class="line">-------------------</div><div class="line">|        B        |</div><div class="line">-------------------</div><div class="line">|                 |</div><div class="line">| stu_0 -&gt; stu_B1 |</div><div class="line">|                 |</div><div class="line">-------------------</div></pre></td></tr></table></figure>
+<p>最终，B 和 A、C 中的同一条记录内容并不相同，A、B、C 三个系统的数据出现了不一致的情况。</p>
+<h2 id="解决方案的思考"><a href="#解决方案的思考" class="headerlink" title="解决方案的思考"></a>解决方案的思考</h2><h3 id="发起修改操作的系统订阅自身发送的数据"><a href="#发起修改操作的系统订阅自身发送的数据" class="headerlink" title="发起修改操作的系统订阅自身发送的数据"></a>发起修改操作的系统订阅自身发送的数据</h3><p>如果 A、B、C 系统都能够按照 MQ 中的数据的顺序去修改记录，那么该条记录最终在各个系统中都将是 stu_B1，即可以实现最终一致性。<br>这要求 A、B、C 系统都必须订阅 MQ 中的数据，<strong>包括自身系统发送到 MQ 中的数据</strong>。</p>
+<p>优点：可以实现数据的最终一致性。<br>缺点：</p>
+<ul>
+<li>在 RabbitMQ 中是否可以实现这样的配置？</li>
+<li>对于发起修改操作的系统来说，会重复执行一次更新操作。</li>
+</ul>
+<h3 id="对每条记录引入一个在各个系统中唯一的版本号"><a href="#对每条记录引入一个在各个系统中唯一的版本号" class="headerlink" title="对每条记录引入一个在各个系统中唯一的版本号"></a>对每条记录引入一个在各个系统中唯一的版本号</h3><p>以上述场景为例，我们给学生记录添加一个全局的版本号，假设初始数据为 stu_0，数据同步流程如下：</p>
+<ol>
+<li>先在 A 系统中修改数据：stu_0 -&gt; stu_1</li>
+<li>后在 B 系统中修改数据：stu_0 -&gt; stu_2</li>
+<li>B 系统接收到 A 系统修改后的数据，和当前记录进行版本比对，发现 stu_2 &gt; stu_1，所以丢弃该数据的修改。</li>
+<li>A 系统接收到 B 系统修改后的数据，和当前记录进行版本比对，发现 stu_1 &lt; stu_2，对数据做了修改：stu_1 -&gt; stu_2</li>
+<li>C 系统依次接收到 A、B 系统修改后的数据，对数据做了修改：<ol>
+<li>第一次版本比对发现 stu_0 &lt; stu_1，对数据做了修改：stu_0 -&gt; stu_1</li>
+<li>第二次版本比对发现 stu_1 &lt; stu_2，对数据做了修改：stu_1 -&gt; stu_2</li>
+</ol>
+</li>
+</ol>
+<p>优点：在数据在各个系统同步时，可以避免一些过期数据的更新操作。<br>缺点：必须添加版本字段，并且要管理全局版本号，系统的复杂度和开发、测试工作量都会增加。</p>
+<p>最终三个系统中该条记录均为 stu_2，保持了数据的最终一致性。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;存在的问题&quot;&gt;&lt;a href=&quot;#存在的问题&quot; class=&quot;headerlink&quot; title=&quot;存在的问题&quot;&gt;&lt;/a&gt;存在的问题&lt;/h2&gt;&lt;p&gt;按照目前公司产品中数据同步采用的发布订阅的规则，假设以下的场景：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在 A 系统中将某条学生记录 stu_0 做了修改：stu_0 -&amp;gt; stu_A1，并将修改后的记录发送到了 MQ 中。&lt;/li&gt;
+&lt;li&gt;在 B 系统接收到 MQ 中的 A1 之前，B 系统也将学生记录 stu_0 做了修改：修改为 stu_B1 并发送到了 MQ 中。&lt;/li&gt;
+&lt;li&gt;现在在 MQ 中有两条记录需要同步，按 FIFO 顺序为 stu_A1、stu_B1。&lt;/li&gt;
+&lt;li&gt;A 系统接收到 stu_B1，做了修改：stu_A1 -&amp;gt; stu_B1。&lt;/li&gt;
+&lt;li&gt;B 系统接收到 stu_A1，做了修改：stu_B1 -&amp;gt; stu_A1。&lt;/li&gt;
+&lt;li&gt;C 系统接收到 stu_A1、stu_B1，做了修改：stu_0 -&amp;gt; stu_A1 -&amp;gt; stu_B1。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="消息队列 数据同步 一致性" scheme="https://akuma.github.io/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5-%E4%B8%80%E8%87%B4%E6%80%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 cURL 度量应用程序响应时间</title>
+    <link href="https://akuma.github.io/2011/03/29/%E4%BD%BF%E7%94%A8-cURL-%E5%BA%A6%E9%87%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4/"/>
+    <id>https://akuma.github.io/2011/03/29/使用-cURL-度量应用程序响应时间/</id>
+    <published>2011-03-29T15:59:34.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>度量应用程序响应时间的方法有很多，但最简单的方法可能是使用 <code>curl</code> 命令。</p>
+<a id="more"></a>
+<p>请看示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -o /dev/null -s -w %&#123;time_connect&#125;:%&#123;time_starttransfer&#125;:%&#123;time_total&#125; http://www.douban.com</div><div class="line">0.136:0.558:0.690</div></pre></td></tr></table></figure>
+<p>以上给出了对豆瓣网执行 curl 命令的情况。几点说明：</p>
+<ul>
+<li><code>-o</code> 参数将响应结果发送到 /dev/null，不在控制台显示</li>
+<li><code>-s</code> 参数让所有状态信息不显示</li>
+<li><code>-w</code> 参数让 curl 显示出计时器的状态信息</li>
+</ul>
+<p>以下是 curl 使用的计时器：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">计时器</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">time_connect</td>
+<td style="text-align:center">建立到服务器的 TCP 连接所用的时间</td>
+</tr>
+<tr>
+<td style="text-align:center">time_starttransfer</td>
+<td style="text-align:center">在发出请求之后，Web 服务器返回数据的第一个字节所用的时间</td>
+</tr>
+<tr>
+<td style="text-align:center">time_total</td>
+<td style="text-align:center">完成请求所用的时间</td>
+</tr>
+</tbody>
+</table>
+<p>这些计时器都相对于事务的起始时间，甚至要早于 DNS（Domain Name Service）查询。<br>因此，在发出请求之后，Web 服务器处理请求并开始发回数据所用的时间是 <code>0.558 - 0.136 = 0.422 s</code>。<br>客户机从服务器下载数据所用的时间是 <code>0.690 - 0.558 = 0.132 s</code>。</p>
+<p>通过观察 curl 数据及其随时间变化的趋势，可以很好地了解站点对用户的响应性。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;度量应用程序响应时间的方法有很多，但最简单的方法可能是使用 &lt;code&gt;curl&lt;/code&gt; 命令。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="http curl performance" scheme="https://akuma.github.io/tags/http-curl-performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSH 公钥认证使用指南</title>
+    <link href="https://akuma.github.io/2010/11/01/SSH-%E5%85%AC%E9%92%A5%E8%AE%A4%E8%AF%81%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
+    <id>https://akuma.github.io/2010/11/01/SSH-公钥认证使用指南/</id>
+    <published>2010-11-01T13:27:59.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="为什么要使用公钥认证"><a href="#为什么要使用公钥认证" class="headerlink" title="为什么要使用公钥认证"></a>为什么要使用公钥认证</h2><p>通常，通过 ssh 登录远程服务器时，使用密码认证，分别输入用户名和密码，两者和服务器端匹配就可以登录。<br><br>但是密码认证有以下的缺点：</p>
+<ul>
+<li>用户无法设置空密码（即使系统允许空密码，也会十分危险）。</li>
+<li>密码容易被人偷窥或猜到。</li>
+<li>服务器上的一个帐户若要给多人使用，则必须让所有使用者都知道密码，导致密码容易泄露，而且修改密码时必须通知所有人。</li>
+</ul>
+<a id="more"></a>
+<p>而使用公钥认证则可以解决上述问题。</p>
+<ul>
+<li>公钥认证允许使用空密码，省去每次登录都需要输入密码的麻烦。</li>
+<li>多个使用者可以通过各自的密钥登录到系统上的同一个用户。</li>
+</ul>
+<h2 id="公钥认证的原理"><a href="#公钥认证的原理" class="headerlink" title="公钥认证的原理"></a>公钥认证的原理</h2><p>所谓的公钥认证，实际上是使用一对加密字符串，一个称为公钥（public key），任何人都可以看到其内容，用于加密；<br>另一个称为密钥（private key），只有拥有者才能看到，用于解密。<br>通过公钥加密过的密文使用密钥可以轻松解密，但根据公钥来猜测密钥却十分困难。</p>
+<p>ssh 的公钥认证就是使用了这一特性。服务器和客户端都各自拥有自己的公钥和密钥。为了说明方便，以下将使用这些符号。</p>
+<p>客户端公钥    Ac<br>客户端密钥    Bc<br>服务器公钥    As<br>服务器密钥    Bs</p>
+<p>在认证之前，客户端需要通过某种方法将公钥 Ac 登录到服务器上。</p>
+<p>认证过程分为两个步骤:</p>
+<ol>
+<li>会话密钥（session key）生成<ol>
+<li>客户端请求连接服务器，服务器将 As 发送给客户端。</li>
+<li>服务器生成会话ID(session id)，设为 p，发送给客户端。</li>
+<li>客户端生成会话密钥(session key)，设为 q，并计算 r = p xor q。</li>
+<li>客户端将 r 用 As 进行加密，结果发送给服务器。</li>
+<li>服务器用 Bs 进行解密，获得 r。</li>
+<li>服务器进行 r xor p 的运算，获得 q。</li>
+<li>至此服务器和客户端都知道了会话密钥 q，以后的传输都将被 q 加密。</li>
+</ol>
+</li>
+<li>认证<ol>
+<li>服务器生成随机数 x，并用 Ac 加密后生成结果 S(x) ，发送给客户端。</li>
+<li>客户端使用 Bc 解密 S(x) 得到 x。</li>
+<li>客户端计算 q + x 的 md5 值 n(q+x)，q为上一步得到的会话密钥。</li>
+<li>服务器计算 q + x 的 md5 值 m(q+x)。</li>
+<li>客户端将 n(q+x) 发送给服务器。</li>
+<li>服务器比较 m(q+x) 和 n(q+x)，两者相同则认证成功。</li>
+</ol>
+</li>
+</ol>
+<h2 id="服务器端设置"><a href="#服务器端设置" class="headerlink" title="服务器端设置"></a>服务器端设置</h2><p>使用公钥认证需要对服务器进行一些设置，以下将以 Ubuntu 系统为例说明。<br>修改服务器端的 <code>/etc/ssh/sshd_config</code> 配置文件，确保以下配置开启：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RSAAuthentication yes        # 启用 RSA 认证</div><div class="line">PubkeyAuthentication yes     # 启用公钥认证</div><div class="line">PasswordAuthentication no    # 如果对服务器安全性要求比较高，可以设置用户只允许通过公钥认证，禁止用户用密码方式登录</div></pre></td></tr></table></figure>
+<p>然后重新启动 sshd：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo /etc/init.d/ssh restart</div></pre></td></tr></table></figure>
+<h2 id="客户端设置"><a href="#客户端设置" class="headerlink" title="客户端设置"></a>客户端设置</h2><p>假设客户端的用户 jerry 要以 tom 用户登录到服务器上。首先在客户端执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[jerry@client: ~] $ ssh-keygen -t rsa</div><div class="line">Generating public/private rsa1 key pair.</div><div class="line">Enter file in which to save the key (/home/jerry/.ssh/id_rsa):</div><div class="line">Enter passphrase (empty for no passphrase):  输入密码</div><div class="line">Enter same passphrase again:   再次输入密码</div><div class="line">Your identification has been sabed in /home/jerry/.ssh/id_rsa</div><div class="line">Your public key has been saved in /home/jerry/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
+<p>其中，<code>passphrase</code> 可以为空，如果为空，登录时将不需要密码。<br>生成的文件保存在主目录的 .ssh 目录下，<code>id_rsa</code> 为客户端密钥，<code>id_rsa.pub</code> 为客户端公钥。<br>之后，通过 scp 方式将公钥 <code>id_rsa.pub</code> 传到到服务器上，并执行下列命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[tom@server:~]$ cat id_rsa.pub &gt;&gt; .ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>其中 <code>id_rsa.pub</code> 是客户端的用户 jerry 的公钥。注意：</p>
+<ul>
+<li>.ssh 目录的权限是 700。</li>
+<li>.ssh/authorized_keys 文件权限是 600。</li>
+</ul>
+<p>这样在客户端即可通过以下的命令连接服务器（假设 server 的 ip 是 192.168.0.1）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[jerry@client:~]$ ssh tom@192.168.0.1</div></pre></td></tr></table></figure>
+<p>如果生成公钥的时候输入了密码，又不想每次登录服务器时都输入密码，可以先执行下列命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[jerry@client:~]$ ssh-add</div><div class="line">Enter passphrase for /home/jerry/.ssh/id_rsa: 输入密码</div><div class="line">Identity added: /home/jerry/.ssh/id_rsa (/home/jerry/.ssh/id_rsa)</div></pre></td></tr></table></figure>
+<p>以后登录服务器就不需要输入密码了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;为什么要使用公钥认证&quot;&gt;&lt;a href=&quot;#为什么要使用公钥认证&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用公钥认证&quot;&gt;&lt;/a&gt;为什么要使用公钥认证&lt;/h2&gt;&lt;p&gt;通常，通过 ssh 登录远程服务器时，使用密码认证，分别输入用户名和密码，两者和服务器端匹配就可以登录。&lt;br&gt;&lt;br&gt;但是密码认证有以下的缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户无法设置空密码（即使系统允许空密码，也会十分危险）。&lt;/li&gt;
+&lt;li&gt;密码容易被人偷窥或猜到。&lt;/li&gt;
+&lt;li&gt;服务器上的一个帐户若要给多人使用，则必须让所有使用者都知道密码，导致密码容易泄露，而且修改密码时必须通知所有人。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="linux ssh" scheme="https://akuma.github.io/tags/linux-ssh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于系统运维、开发设计的一些杂想</title>
+    <link href="https://akuma.github.io/2010/09/29/%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4%E3%80%81%E5%BC%80%E5%8F%91%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E6%83%B3/"/>
+    <id>https://akuma.github.io/2010/09/29/关于系统运维、开发设计的一些杂想/</id>
+    <published>2010-09-29T12:17:26.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>有时候自己突然会冒出一些新的想法和工作思路，但是如果当时没有记录下来的话，往往很快就忘记。所以现在把这些想到的记录在这里，会比较杂，但有时间就可以把它们整理成比较详细的东西。</p>
+<a id="more"></a>
+<h2 id="对-Web-系统增加访问统计"><a href="#对-Web-系统增加访问统计" class="headerlink" title="对 Web 系统增加访问统计"></a>对 Web 系统增加访问统计</h2><p>在我们现有的各个系统中很少有对访问信息（如 PV、浏览器信息等）做详细记录的，而这些数据其实对数据统计、业务分析、浏览器分析、性能优化等来说都是必备的。</p>
+<p>现成的这类免费统计服务也挺多，CNZZ 是这方面国内比较专业的网站。使用第三方服务的一个缺陷是，只能使用提供的功能，无法实现个性化的数据分析。</p>
+<p>添加统计脚本时，我希望能够做到：</p>
+<ul>
+<li>能够方便的给多个页面添加或删除这种脚本；</li>
+<li>能够方便的启用或停用统计脚本。</li>
+</ul>
+<p>以下是一些解决方案：</p>
+<ol>
+<li>如果页面采用的是 JSP，那么定义一个通用页面，将脚本写到这个页面，需要用到的页面 include 一下。</li>
+<li>如果页面采用的是 freemarker 等模板，那么定义一个通用的宏，将脚本写到宏里，需要用到的页面引用一下。</li>
+<li>如果页面采用了 sitemesh，那么只要在 decorate 页面中统一添加一下脚本，即可实现相关页面都添加。</li>
+<li>采用过滤器来处理，过滤器支持匹配那些 URL 地址、排除那些 URL 地址、给匹配的页面添加什么内容的脚本。</li>
+</ol>
+<p>第 3 种和第 4 种方式相对比较好，因为对页面的代码没有侵入性。</p>
+<p>另外，可以通过读取一个系统配置项来判断是否加载统计脚本，这样就能通过改变配置选项来方便的启用或停用脚本。</p>
+<h2 id="需要能够监控到各个系统的运行状态"><a href="#需要能够监控到各个系统的运行状态" class="headerlink" title="需要能够监控到各个系统的运行状态"></a>需要能够监控到各个系统的运行状态</h2><p>监控的内容包括：CPU、内存、IO、数据库连接池、Tomcat 线程池、应用线程池、在线用户数等。</p>
+<p>扩展 OMC？应用提供监控接口？</p>
+<h2 id="需要方便的动态调整系统的日志级别，方便外网系统问题排查"><a href="#需要方便的动态调整系统的日志级别，方便外网系统问题排查" class="headerlink" title="需要方便的动态调整系统的日志级别，方便外网系统问题排查"></a>需要方便的动态调整系统的日志级别，方便外网系统问题排查</h2><p>如何避免各个应用系统都重复开发这样的功能？</p>
+<h2 id="集群环境下如何方便的查看每个节点的日志？"><a href="#集群环境下如何方便的查看每个节点的日志？" class="headerlink" title="集群环境下如何方便的查看每个节点的日志？"></a>集群环境下如何方便的查看每个节点的日志？</h2><p>和同事讨论之后，一个设想是将日志以共享目录的方式（NFS）存放，每个节点将日志都存放到共享目录的节点目录下，然后通过一个独立的应用系统来提供日志的查看、下载等功能。比如，日志的目录结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">share/</div><div class="line">|-- logs.app</div><div class="line">|   |-- server0</div><div class="line">|   |   |-- background.log</div><div class="line">|   |   `-- smsg.log</div><div class="line">|   |-- server1</div><div class="line">|   |   |-- background.log</div><div class="line">|   |   `-- smsg.log</div><div class="line">|   `-- server2</div><div class="line">|       |-- background.log</div><div class="line">|       `-- smsg.log</div><div class="line">`-- logs.web</div><div class="line">    |-- server0</div><div class="line">    |   |-- eis.log</div><div class="line">    |   |-- ess.log</div><div class="line">    |   |-- etoh.log</div><div class="line">    |   |-- office.log</div><div class="line">    |   `-- passport.log</div><div class="line">    |-- server1</div><div class="line">    |   |-- eis.log</div><div class="line">    |   |-- ess.log</div><div class="line">    |   |-- etoh.log</div><div class="line">    |   |-- office.log</div><div class="line">    |   `-- passport.log</div><div class="line">    `-- server2</div><div class="line">        |-- eis.log</div><div class="line">        |-- ess.log</div><div class="line">        |-- etoh.log</div><div class="line">        |-- office.log</div><div class="line">        `-- passport.log</div></pre></td></tr></table></figure>
+<p>目录说明：</p>
+<ul>
+<li>share 是顶级的共享日志目录，对于各个服务器节点来说，就像本地目录一样访问。</li>
+<li>logs.app 是用于存放后台服务日志文件的目录。</li>
+<li>logs.web 是用于存放 Web 应用日志文件的目录。</li>
+<li>server0、server1、server2 为服务器节点目录，里面存放的是各个服务器节点上产生的日志。</li>
+</ul>
+<h2 id="规范各个系统的连接池配置、日志配置、Spring-数据库事务配置"><a href="#规范各个系统的连接池配置、日志配置、Spring-数据库事务配置" class="headerlink" title="规范各个系统的连接池配置、日志配置、Spring 数据库事务配置"></a>规范各个系统的连接池配置、日志配置、Spring 数据库事务配置</h2><h2 id="编写和使用远程服务（RPC）时应该注意的问题。"><a href="#编写和使用远程服务（RPC）时应该注意的问题。" class="headerlink" title="编写和使用远程服务（RPC）时应该注意的问题。"></a>编写和使用远程服务（RPC）时应该注意的问题。</h2><p>问题场景：</p>
+<ol>
+<li>某 Web 应用系统使用了 ThreadPool 来处理所有核心业务。</li>
+<li>不少业务需要访问内网的一个远程的 UserService(RPC) 来获取用户信息。</li>
+<li>UserService 需要访问数据库。</li>
+<li>数据库有时候会变慢，一些大查询需要 10 秒以上才能完成。</li>
+</ol>
+<p>结果 4 造成 3 很多调用很久才能执行完，3 造成 2 的 RPC 调用阻塞，2 造成 1的 ThreadPool 堵塞，ThreadPool 不断有新任务加入，但是老的任务迟迟不能完成。因此对于最终用户的表现是很多请求没有响应。部分用户认为是网络原因会手工重复提交请求，这样会造成状况并进一步恶化。</p>
+<p>上面的问题根本是没有意识到远程服务可能会超时或失败，把远程服务 RPC 调用当成一个本地调用来执行。</p>
+<p>服务的提供方：</p>
+<ul>
+<li>对接口参数进行日志记录（debug 级别），方便出问题的时候进行排查。</li>
+<li>提供 echo、hello 等简单的接口测试方法，这样在接口调用失败时，可以比较方便的知道是否是网络问题引起。</li>
+</ul>
+<p>服务的调用方：</p>
+<ul>
+<li>对 RPC 调用设置超时时间、并发连接数，超时时间一般包括两个：connectionTimeout、socketTimeout。</li>
+<li>如果对实时性要求不高，可以将 RPC 调用改为异步调用。</li>
+</ul>
+<p>给 XFire 设置超时时间、并发连接数等：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">XFire xfire = XFireFactory.newInstance().getXFire();</div><div class="line">XFireProxyFactory factory = <span class="keyword">new</span> XFireProxyFactory(xfire);</div><div class="line">Service serviceModel = <span class="keyword">new</span> ObjectServiceFactory().create(clazz);</div><div class="line">service = factory.create(serviceModel, serviceURL);</div><div class="line"></div><div class="line"><span class="comment">// 获取客户端代理</span></div><div class="line">Client client = Client.getInstance(service);</div><div class="line"></div><div class="line"><span class="comment">// 设置超时时间等参数</span></div><div class="line">client.setProperty(CommonsHttpMessageSender.HTTP_TIMEOUT, String.valueOf(socketTimeout));</div><div class="line">client.setProperty(CommonsHttpMessageSender.MAX_CONN_PER_HOST, String.valueOf(maxConnections));</div><div class="line">client.setProperty(CommonsHttpMessageSender.MAX_TOTAL_CONNECTIONS, String.valueOf(maxConnections));</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>给 HttpInvoker 设置超时时间、并发连接数等：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">HttpInvokerProxyFactoryBean factoryBean = <span class="keyword">new</span> HttpInvokerProxyFactoryBean();</div><div class="line">factoryBean.setServiceUrl(serviceUrl);</div><div class="line">factoryBean.setServiceInterface(serviceInterface);</div><div class="line"></div><div class="line">CommonsHttpInvokerRequestExecutor executor = <span class="keyword">new</span> CommonsHttpInvokerRequestExecutor();</div><div class="line"></div><div class="line">connMgrParams = executor.getHttpClient().getHttpConnectionManager().getParams();</div><div class="line"></div><div class="line">connMgrParams.setConnectionTimeout(connectionTimeout); <span class="comment">// 设置连接超时时间</span></div><div class="line">connMgrParams.setSoTimeout(socketTimeout); <span class="comment">// 设置Socket超时时间</span></div><div class="line"></div><div class="line">connMgrParams.setDefaultMaxConnectionsPerHost(maxConnections); <span class="comment">// 设置每个Host的连接池的最大连接数</span></div><div class="line">connMgrParams.setMaxTotalConnections(maxConnections); <span class="comment">// 设置全局的连接池的最大连接数</span></div><div class="line"></div><div class="line">factoryBean.setHttpInvokerRequestExecutor(executor);</div><div class="line">...</div></pre></td></tr></table></figure>
+<h2 id="系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查"><a href="#系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查" class="headerlink" title="系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查"></a>系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查</h2><p>比如可以类似家校互联这样的在某些关键性页面添加服务器标识。</p>
+<h2 id="如何方便的在集群环境下发布应用"><a href="#如何方便的在集群环境下发布应用" class="headerlink" title="如何方便的在集群环境下发布应用"></a>如何方便的在集群环境下发布应用</h2><p>集群环境多了，发布应用是个麻烦的事情。如果仍然采用手工发布，不仅效率低而且容易出错。<br><br>采用第三方工具？自己开发工具？</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有时候自己突然会冒出一些新的想法和工作思路，但是如果当时没有记录下来的话，往往很快就忘记。所以现在把这些想到的记录在这里，会比较杂，但有时间就可以把它们整理成比较详细的东西。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="运维 开发" scheme="https://akuma.github.io/tags/%E8%BF%90%E7%BB%B4-%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于不同浏览器的链接解析问题</title>
+    <link href="https://akuma.github.io/2010/08/11/%E5%85%B3%E4%BA%8E%E4%B8%8D%E5%90%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90%E9%97%AE%E9%A2%98/"/>
+    <id>https://akuma.github.io/2010/08/11/关于不同浏览器的链接解析问题/</id>
+    <published>2010-08-11T10:13:17.000Z</published>
+    <updated>2017-01-15T08:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天宁夏部署了 Sqlman。同时在使用过程中发现了一些链接地址错误的问题。<br><br>而我在自己的电脑上测试，却完全没有问题。通过查看代码以及在不同的浏览器下做测试，原来是不同浏览器在实现上的差异问题。</p>
+<a id="more"></a>
+<p>假设有这样的一个场景，用户当前访问的链接地址为：<a href="http://foo.com/bar/test.html" target="_blank" rel="external">http://foo.com/bar/test.html</a><br>此页面上存在一个链接地址，定义如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>当前链接地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在 Firefox 浏览器和基于 Webkit 内核的浏览器（Chrome、搜狗高速访问模式）中，点击此链接均会重新刷新当前页面，也就是说当链接地址为空时，浏览器会理解为请求当前地址。<br>而在 IE 内核的浏览器中，点击此链接会请求到：<a href="http://foo.com/bar/。" target="_blank" rel="external">http://foo.com/bar/。</a></p>
+<p>因为当时开发时我主要在 Firefox 中进行，在 IE 下没有做过完整的测试，所以导致了这个 bug 的产生。<br>解决此问题的方法就是别偷懒，把地址写出来，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"test.html"</span>&gt;</span>当前链接地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>虽然是小问题，但体现出了 IE 内核的浏览器和其他浏览器之间存在的细微差别。给我们的一个启示是，不要忽视我们的产品在常用浏览器下的兼容性测试。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天宁夏部署了 Sqlman。同时在使用过程中发现了一些链接地址错误的问题。&lt;br&gt;&lt;br&gt;而我在自己的电脑上测试，却完全没有问题。通过查看代码以及在不同的浏览器下做测试，原来是不同浏览器在实现上的差异问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="浏览器 兼容性" scheme="https://akuma.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8-%E5%85%BC%E5%AE%B9%E6%80%A7/"/>
+    
+  </entry>
+  
+</feed>

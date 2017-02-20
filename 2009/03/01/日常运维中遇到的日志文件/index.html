@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 日常运维中遇到的日志文件 · Coding Life</title><meta name="description" content="日常运维中遇到的日志文件 - Akuma Huang"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://akuma.github.io/atom.xml" title="Coding Life"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/akuma" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">日常运维中遇到的日志文件</h1><div class="post-info">Mar 1, 2009</div><div class="post-content"><p>这里的日志文件，特指大家在平时的产品开发、产品运维过程中会经常接触的文件，主要有两种：</p>
+<ul>
+<li>tomcat 产生的日志文件</li>
+<li>应用程序产生的日志文件</li>
+</ul>
+<a id="more"></a>
+<p>此处暂不讨论数据库方面的日志文件。</p>
+<p>根据我和一些同学在工作中的接触，有些人对这方面并不太了解，这会导致我们在产品运维工作中遇到一些不必要的麻烦。所以我觉得有必要以自己的方式来说明一下，也欢迎大家提出异议和建议。</p>
+<h2 id="两种日志文件的区别"><a href="#两种日志文件的区别" class="headerlink" title="两种日志文件的区别"></a>两种日志文件的区别</h2><p>为了容易说明上述两种日志文件的区别，我根据日志文件的来源把它们分别称为：tomcat 日志、应用日志。</p>
+<h3 id="什么是-tomcat-日志？"><a href="#什么是-tomcat-日志？" class="headerlink" title="什么是 tomcat 日志？"></a>什么是 tomcat 日志？</h3><p>tomcat 日志默认在 tomcat/logs 目录下，一般大家最熟悉的就是 catalina.out 这个文件，实际上所有输出到控制台的内容都包含在这个文件中。<br>另外还有一些其他的 tomcat 服务启动、停止的日志、网页访问日志等，一般我们不太关注这些日志。</p>
+<h3 id="什么是应用日志？"><a href="#什么是应用日志？" class="headerlink" title="什么是应用日志？"></a>什么是应用日志？</h3><p>应用日志指业务系统产生的日志文件，一般默认生成在 tomcat/logs/xxx 目录下，每日一个文件。例如 Passport 的当日的日志文件为 tomcat/logs/passport/passport.log。</p>
+<h3 id="应用日志和-tomcat-日志有啥联系？"><a href="#应用日志和-tomcat-日志有啥联系？" class="headerlink" title="应用日志和 tomcat 日志有啥联系？"></a>应用日志和 tomcat 日志有啥联系？</h3><p>我们的应用程序在日志输出上可以指定目标，一般最常用的两个目标是：文件、控制台。输出到文件的日志会生成到 <code>/usr/local/tomcat/logs/xxx</code> 目录下，而输出到控制台的日志，则一般存在于 <code>catalina.out</code> 文件。</p>
+<h3 id="这么多日志很麻烦，只看-catalina-out-不就好了吗？"><a href="#这么多日志很麻烦，只看-catalina-out-不就好了吗？" class="headerlink" title="这么多日志很麻烦，只看 catalina.out 不就好了吗？"></a>这么多日志很麻烦，只看 catalina.out 不就好了吗？</h3><p>从目前实际情况来看，可以说 <code>catalina.out</code> 文件就是一个大杂脍，包含了各个虚拟主机中的应用系统输出到控制台的信息以及 tomcat 自身的一些信息。而这个文件的内容会不断累加（不会自动截断，一般手工处理），所以时间长了以后文件往往会超大，动辄好几个 G。当应用程序出现故障时，此文件又大内容又杂，必然给问题原因的查找定位带来更大的麻烦。</p>
+<p>所以，不推荐通过查看这个文件来定位应用程序的问题。而且，应用程序也不应该把日志信息输出到控制台，这样就避免了这个文件大小以比较快的速度增长。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/2009/06/16/用-Java-进行-HTTP-请求的代码示例/" class="prev">PREV</a><a href="/2009/01/21/Java-枚举类型在-switch-语句中的正确用法/" class="next">NEXT</a></div><div data-thread-key="2009/03/01/日常运维中遇到的日志文件/" data-title="日常运维中遇到的日志文件" data-url="https://akuma.github.io/2009/03/01/日常运维中遇到的日志文件/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2009 - 2017 <a href="https://akuma.github.io">Akuma Huang</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
