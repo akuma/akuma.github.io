@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://akuma.github.io/"/>
-  <updated>2017-02-20T05:32:13.000Z</updated>
+  <updated>2017-02-23T03:38:31.000Z</updated>
   <id>https://akuma.github.io/</id>
   
   <author>
@@ -16,11 +16,186 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>几个常用的 Linux 系统分析工具</title>
+    <link href="https://akuma.github.io/2017/01/13/%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84-Linux-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/"/>
+    <id>https://akuma.github.io/2017/01/13/几个常用的-Linux-系统分析工具/</id>
+    <published>2017-01-13T02:04:07.000Z</published>
+    <updated>2017-02-23T03:38:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p><code>top</code> 命令用于快速了解当前系统的负载情况。</p>
+<p>比较常用的交互式命令：</p>
+<ul>
+<li><code>1</code>：查看每个 CPU 的时间分配情况</li>
+<li><code>H</code>：查看每个线程的资源占用情况</li>
+<li><code>P</code>：执行任务按 CPU 占用降序排序</li>
+<li><code>M</code>：执行任务按内存占用降序排序</li>
+</ul>
+<p>&lt;– more –&gt;</p>
+<table>
+<thead>
+<tr>
+<th>行号</th>
+<th>字段</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>top</td>
+<td>程序名</td>
+</tr>
+<tr>
+<td></td>
+<td>14:59:20</td>
+<td>当前时间</td>
+</tr>
+<tr>
+<td></td>
+<td>up 6:30</td>
+<td>指计算机从上次启动到现在所运行的时间</td>
+</tr>
+<tr>
+<td></td>
+<td>2 users</td>
+<td>指有多少用户登录系统</td>
+</tr>
+<tr>
+<td></td>
+<td>load average</td>
+<td>指等待运行的进程数，三个数字分别是最近的 1 分钟、5 分钟、15 分钟的平均值</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Tasks</td>
+<td>描述了进程数目和各种进程状态</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Cpu(s)</td>
+<td>描述了 CPU 时间分配统计</td>
+</tr>
+<tr>
+<td></td>
+<td>us</td>
+<td>user 的缩写，CPU 消耗在 User space 的时间百分比</td>
+</tr>
+<tr>
+<td></td>
+<td>sy</td>
+<td>system 的缩写，CPU 消耗在 Kernel space 的时间百分比</td>
+</tr>
+<tr>
+<td></td>
+<td>ni</td>
+<td>niceness 的缩写，CPU 消耗在 nice 进程（低优先级）的时间百分比</td>
+</tr>
+<tr>
+<td></td>
+<td>id</td>
+<td>idle 的缩写，CPU 消耗在闲置进程的时间百分比，这个值越低，表示 CPU 越忙</td>
+</tr>
+<tr>
+<td></td>
+<td>wa</td>
+<td>wait 的缩写，CPU 等待外部 I/O 的时间百分比，这段时间 CPU 不能干其他事，但是也没有执行运算，这个值太高就说明外部设备有问题</td>
+</tr>
+<tr>
+<td></td>
+<td>hi</td>
+<td>hardware interrupt 的缩写，CPU 响应硬件中断请求的时间百分比</td>
+</tr>
+<tr>
+<td></td>
+<td>si</td>
+<td>software interrupt 的缩写，CPU 响应软件中断请求的时间百分比</td>
+</tr>
+<tr>
+<td></td>
+<td>st</td>
+<td>stole time 的缩写，该项指标只对虚拟机有效，表示分配给当前虚拟机的 CPU 时间之中，被同一台物理机上的其他虚拟机偷走的时间百分比</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Mem</td>
+<td>描述物理内存的使用情况</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Swap</td>
+<td>描述交换分区（虚拟内存）的使用情况</td>
+</tr>
+</tbody>
+</table>
+<p>##</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2016/12/user_space_vs_kernel_space.html" target="_blank" rel="external">User space 与 Kernel space</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;top&quot;&gt;&lt;a href=&quot;#top&quot; class=&quot;headerlink&quot; title=&quot;top&quot;&gt;&lt;/a&gt;top&lt;/h2&gt;&lt;p&gt;&lt;code&gt;top&lt;/code&gt; 命令用于快速了解当前系统的负载情况。&lt;/p&gt;
+&lt;p&gt;比较常用的交互式命令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;l
+    
+    </summary>
+    
+    
+      <category term="linux tool top" scheme="https://akuma.github.io/tags/linux-tool-top/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IntelliJ IDEA 常用快捷键</title>
+    <link href="https://akuma.github.io/2017/01/10/IntelliJ-IDEA-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>https://akuma.github.io/2017/01/10/IntelliJ-IDEA-常用快捷键/</id>
+    <published>2017-01-10T05:42:59.000Z</published>
+    <updated>2017-02-20T05:47:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>刚刚从 Eclipse 转到 IDEA，所以把一些常用的快捷键整理出来备忘一下。</p>
+<ul>
+<li><code>Cmd + O</code>: 根据类名搜索类</li>
+<li><code>Cmd + Shift + O</code>: 搜索文件名搜索文件</li>
+<li><code>Cmd + .</code>: 代码提示</li>
+<li><code>Cmd + L</code>: 跳到某一行</li>
+<li><code>Cmd + Opt + L</code>: 格式化当前代码</li>
+<li><code>Cmd + Shift + U</code>: 将当前字符转变成大写或小写</li>
+<li><code>Cmd + F12</code>: 显示当前的文件结构</li>
+<li><code>Opt + Up</code>: 根据符号选择文本</li>
+<li><code>Cmd + B</code>: 直接跳转到接口的实现方法</li>
+<li><code>Cmd + E</code>: 显示最近编辑的文件列表</li>
+<li><code>Cmd + [</code>: 跳到大括号开头</li>
+<li><code>Cmd + ]</code>: 跳到大括号结尾</li>
+<li><code>Cmd + W</code>: 关闭当前文件试图</li>
+<li><code>Cmd + D</code>: 复制整行或块</li>
+<li><code>Cmd + Delete</code>: 删除整行</li>
+<li><code>Opt + Shift + Up</code>：将当前整行移动到上一行位置</li>
+<li><code>Opt + Shift + Down</code>：将当前整行移动到下一行位置</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;刚刚从 Eclipse 转到 IDEA，所以把一些常用的快捷键整理出来备忘一下。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Cmd + O&lt;/code&gt;: 根据类名搜索类&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Cmd + Shift + O&lt;/code&gt;: 搜索文件名搜索文件&lt;/li&gt;
+    
+    </summary>
+    
+    
+      <category term="idea java" scheme="https://akuma.github.io/tags/idea-java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>macOS 开发环境搭建笔记</title>
     <link href="https://akuma.github.io/2017/01/05/macOS-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0/"/>
     <id>https://akuma.github.io/2017/01/05/macOS-开发环境搭建笔记/</id>
     <published>2017-01-05T04:44:31.000Z</published>
-    <updated>2017-02-20T05:32:13.000Z</updated>
+    <updated>2017-01-05T05:34:53.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="初始准备工作"><a href="#初始准备工作" class="headerlink" title="初始准备工作"></a>初始准备工作</h2><h3 id="通过-AppStore-安装-XCode"><a href="#通过-AppStore-安装-XCode" class="headerlink" title="通过 AppStore 安装 XCode"></a>通过 AppStore 安装 XCode</h3><h3 id="修改-sudo-权限（管理员不需要输入密码）"><a href="#修改-sudo-权限（管理员不需要输入密码）" class="headerlink" title="修改 sudo 权限（管理员不需要输入密码）"></a>修改 sudo 权限（管理员不需要输入密码）</h3><p>打开 shell，执行 <code>sudo visudo</code>，修改以下部分内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%admin          ALL = (ALL) NOPASSWD: ALL</div></pre></td></tr></table></figure>
@@ -1055,109 +1230,6 @@
     
     
       <category term="linux ssh" scheme="https://akuma.github.io/tags/linux-ssh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于系统运维、开发设计的一些杂想</title>
-    <link href="https://akuma.github.io/2010/09/29/%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4%E3%80%81%E5%BC%80%E5%8F%91%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E6%83%B3/"/>
-    <id>https://akuma.github.io/2010/09/29/关于系统运维、开发设计的一些杂想/</id>
-    <published>2010-09-29T12:17:26.000Z</published>
-    <updated>2017-01-15T08:18:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>有时候自己突然会冒出一些新的想法和工作思路，但是如果当时没有记录下来的话，往往很快就忘记。所以现在把这些想到的记录在这里，会比较杂，但有时间就可以把它们整理成比较详细的东西。</p>
-<a id="more"></a>
-<h2 id="对-Web-系统增加访问统计"><a href="#对-Web-系统增加访问统计" class="headerlink" title="对 Web 系统增加访问统计"></a>对 Web 系统增加访问统计</h2><p>在我们现有的各个系统中很少有对访问信息（如 PV、浏览器信息等）做详细记录的，而这些数据其实对数据统计、业务分析、浏览器分析、性能优化等来说都是必备的。</p>
-<p>现成的这类免费统计服务也挺多，CNZZ 是这方面国内比较专业的网站。使用第三方服务的一个缺陷是，只能使用提供的功能，无法实现个性化的数据分析。</p>
-<p>添加统计脚本时，我希望能够做到：</p>
-<ul>
-<li>能够方便的给多个页面添加或删除这种脚本；</li>
-<li>能够方便的启用或停用统计脚本。</li>
-</ul>
-<p>以下是一些解决方案：</p>
-<ol>
-<li>如果页面采用的是 JSP，那么定义一个通用页面，将脚本写到这个页面，需要用到的页面 include 一下。</li>
-<li>如果页面采用的是 freemarker 等模板，那么定义一个通用的宏，将脚本写到宏里，需要用到的页面引用一下。</li>
-<li>如果页面采用了 sitemesh，那么只要在 decorate 页面中统一添加一下脚本，即可实现相关页面都添加。</li>
-<li>采用过滤器来处理，过滤器支持匹配那些 URL 地址、排除那些 URL 地址、给匹配的页面添加什么内容的脚本。</li>
-</ol>
-<p>第 3 种和第 4 种方式相对比较好，因为对页面的代码没有侵入性。</p>
-<p>另外，可以通过读取一个系统配置项来判断是否加载统计脚本，这样就能通过改变配置选项来方便的启用或停用脚本。</p>
-<h2 id="需要能够监控到各个系统的运行状态"><a href="#需要能够监控到各个系统的运行状态" class="headerlink" title="需要能够监控到各个系统的运行状态"></a>需要能够监控到各个系统的运行状态</h2><p>监控的内容包括：CPU、内存、IO、数据库连接池、Tomcat 线程池、应用线程池、在线用户数等。</p>
-<p>扩展 OMC？应用提供监控接口？</p>
-<h2 id="需要方便的动态调整系统的日志级别，方便外网系统问题排查"><a href="#需要方便的动态调整系统的日志级别，方便外网系统问题排查" class="headerlink" title="需要方便的动态调整系统的日志级别，方便外网系统问题排查"></a>需要方便的动态调整系统的日志级别，方便外网系统问题排查</h2><p>如何避免各个应用系统都重复开发这样的功能？</p>
-<h2 id="集群环境下如何方便的查看每个节点的日志？"><a href="#集群环境下如何方便的查看每个节点的日志？" class="headerlink" title="集群环境下如何方便的查看每个节点的日志？"></a>集群环境下如何方便的查看每个节点的日志？</h2><p>和同事讨论之后，一个设想是将日志以共享目录的方式（NFS）存放，每个节点将日志都存放到共享目录的节点目录下，然后通过一个独立的应用系统来提供日志的查看、下载等功能。比如，日志的目录结构如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">share/</div><div class="line">|-- logs.app</div><div class="line">|   |-- server0</div><div class="line">|   |   |-- background.log</div><div class="line">|   |   `-- smsg.log</div><div class="line">|   |-- server1</div><div class="line">|   |   |-- background.log</div><div class="line">|   |   `-- smsg.log</div><div class="line">|   `-- server2</div><div class="line">|       |-- background.log</div><div class="line">|       `-- smsg.log</div><div class="line">`-- logs.web</div><div class="line">    |-- server0</div><div class="line">    |   |-- eis.log</div><div class="line">    |   |-- ess.log</div><div class="line">    |   |-- etoh.log</div><div class="line">    |   |-- office.log</div><div class="line">    |   `-- passport.log</div><div class="line">    |-- server1</div><div class="line">    |   |-- eis.log</div><div class="line">    |   |-- ess.log</div><div class="line">    |   |-- etoh.log</div><div class="line">    |   |-- office.log</div><div class="line">    |   `-- passport.log</div><div class="line">    `-- server2</div><div class="line">        |-- eis.log</div><div class="line">        |-- ess.log</div><div class="line">        |-- etoh.log</div><div class="line">        |-- office.log</div><div class="line">        `-- passport.log</div></pre></td></tr></table></figure>
-<p>目录说明：</p>
-<ul>
-<li>share 是顶级的共享日志目录，对于各个服务器节点来说，就像本地目录一样访问。</li>
-<li>logs.app 是用于存放后台服务日志文件的目录。</li>
-<li>logs.web 是用于存放 Web 应用日志文件的目录。</li>
-<li>server0、server1、server2 为服务器节点目录，里面存放的是各个服务器节点上产生的日志。</li>
-</ul>
-<h2 id="规范各个系统的连接池配置、日志配置、Spring-数据库事务配置"><a href="#规范各个系统的连接池配置、日志配置、Spring-数据库事务配置" class="headerlink" title="规范各个系统的连接池配置、日志配置、Spring 数据库事务配置"></a>规范各个系统的连接池配置、日志配置、Spring 数据库事务配置</h2><h2 id="编写和使用远程服务（RPC）时应该注意的问题。"><a href="#编写和使用远程服务（RPC）时应该注意的问题。" class="headerlink" title="编写和使用远程服务（RPC）时应该注意的问题。"></a>编写和使用远程服务（RPC）时应该注意的问题。</h2><p>问题场景：</p>
-<ol>
-<li>某 Web 应用系统使用了 ThreadPool 来处理所有核心业务。</li>
-<li>不少业务需要访问内网的一个远程的 UserService(RPC) 来获取用户信息。</li>
-<li>UserService 需要访问数据库。</li>
-<li>数据库有时候会变慢，一些大查询需要 10 秒以上才能完成。</li>
-</ol>
-<p>结果 4 造成 3 很多调用很久才能执行完，3 造成 2 的 RPC 调用阻塞，2 造成 1的 ThreadPool 堵塞，ThreadPool 不断有新任务加入，但是老的任务迟迟不能完成。因此对于最终用户的表现是很多请求没有响应。部分用户认为是网络原因会手工重复提交请求，这样会造成状况并进一步恶化。</p>
-<p>上面的问题根本是没有意识到远程服务可能会超时或失败，把远程服务 RPC 调用当成一个本地调用来执行。</p>
-<p>服务的提供方：</p>
-<ul>
-<li>对接口参数进行日志记录（debug 级别），方便出问题的时候进行排查。</li>
-<li>提供 echo、hello 等简单的接口测试方法，这样在接口调用失败时，可以比较方便的知道是否是网络问题引起。</li>
-</ul>
-<p>服务的调用方：</p>
-<ul>
-<li>对 RPC 调用设置超时时间、并发连接数，超时时间一般包括两个：connectionTimeout、socketTimeout。</li>
-<li>如果对实时性要求不高，可以将 RPC 调用改为异步调用。</li>
-</ul>
-<p>给 XFire 设置超时时间、并发连接数等：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">XFire xfire = XFireFactory.newInstance().getXFire();</div><div class="line">XFireProxyFactory factory = <span class="keyword">new</span> XFireProxyFactory(xfire);</div><div class="line">Service serviceModel = <span class="keyword">new</span> ObjectServiceFactory().create(clazz);</div><div class="line">service = factory.create(serviceModel, serviceURL);</div><div class="line"></div><div class="line"><span class="comment">// 获取客户端代理</span></div><div class="line">Client client = Client.getInstance(service);</div><div class="line"></div><div class="line"><span class="comment">// 设置超时时间等参数</span></div><div class="line">client.setProperty(CommonsHttpMessageSender.HTTP_TIMEOUT, String.valueOf(socketTimeout));</div><div class="line">client.setProperty(CommonsHttpMessageSender.MAX_CONN_PER_HOST, String.valueOf(maxConnections));</div><div class="line">client.setProperty(CommonsHttpMessageSender.MAX_TOTAL_CONNECTIONS, String.valueOf(maxConnections));</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>给 HttpInvoker 设置超时时间、并发连接数等：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">HttpInvokerProxyFactoryBean factoryBean = <span class="keyword">new</span> HttpInvokerProxyFactoryBean();</div><div class="line">factoryBean.setServiceUrl(serviceUrl);</div><div class="line">factoryBean.setServiceInterface(serviceInterface);</div><div class="line"></div><div class="line">CommonsHttpInvokerRequestExecutor executor = <span class="keyword">new</span> CommonsHttpInvokerRequestExecutor();</div><div class="line"></div><div class="line">connMgrParams = executor.getHttpClient().getHttpConnectionManager().getParams();</div><div class="line"></div><div class="line">connMgrParams.setConnectionTimeout(connectionTimeout); <span class="comment">// 设置连接超时时间</span></div><div class="line">connMgrParams.setSoTimeout(socketTimeout); <span class="comment">// 设置Socket超时时间</span></div><div class="line"></div><div class="line">connMgrParams.setDefaultMaxConnectionsPerHost(maxConnections); <span class="comment">// 设置每个Host的连接池的最大连接数</span></div><div class="line">connMgrParams.setMaxTotalConnections(maxConnections); <span class="comment">// 设置全局的连接池的最大连接数</span></div><div class="line"></div><div class="line">factoryBean.setHttpInvokerRequestExecutor(executor);</div><div class="line">...</div></pre></td></tr></table></figure>
-<h2 id="系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查"><a href="#系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查" class="headerlink" title="系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查"></a>系统应该提供某种方式，方便的查看到应用所部署的服务器，方便集群环境下的问题排查</h2><p>比如可以类似家校互联这样的在某些关键性页面添加服务器标识。</p>
-<h2 id="如何方便的在集群环境下发布应用"><a href="#如何方便的在集群环境下发布应用" class="headerlink" title="如何方便的在集群环境下发布应用"></a>如何方便的在集群环境下发布应用</h2><p>集群环境多了，发布应用是个麻烦的事情。如果仍然采用手工发布，不仅效率低而且容易出错。<br><br>采用第三方工具？自己开发工具？</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;有时候自己突然会冒出一些新的想法和工作思路，但是如果当时没有记录下来的话，往往很快就忘记。所以现在把这些想到的记录在这里，会比较杂，但有时间就可以把它们整理成比较详细的东西。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="运维 开发" scheme="https://akuma.github.io/tags/%E8%BF%90%E7%BB%B4-%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于不同浏览器的链接解析问题</title>
-    <link href="https://akuma.github.io/2010/08/11/%E5%85%B3%E4%BA%8E%E4%B8%8D%E5%90%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90%E9%97%AE%E9%A2%98/"/>
-    <id>https://akuma.github.io/2010/08/11/关于不同浏览器的链接解析问题/</id>
-    <published>2010-08-11T10:13:17.000Z</published>
-    <updated>2017-01-15T08:18:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天宁夏部署了 Sqlman。同时在使用过程中发现了一些链接地址错误的问题。<br><br>而我在自己的电脑上测试，却完全没有问题。通过查看代码以及在不同的浏览器下做测试，原来是不同浏览器在实现上的差异问题。</p>
-<a id="more"></a>
-<p>假设有这样的一个场景，用户当前访问的链接地址为：<a href="http://foo.com/bar/test.html" target="_blank" rel="external">http://foo.com/bar/test.html</a><br>此页面上存在一个链接地址，定义如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>当前链接地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>在 Firefox 浏览器和基于 Webkit 内核的浏览器（Chrome、搜狗高速访问模式）中，点击此链接均会重新刷新当前页面，也就是说当链接地址为空时，浏览器会理解为请求当前地址。<br>而在 IE 内核的浏览器中，点击此链接会请求到：<a href="http://foo.com/bar/。" target="_blank" rel="external">http://foo.com/bar/。</a></p>
-<p>因为当时开发时我主要在 Firefox 中进行，在 IE 下没有做过完整的测试，所以导致了这个 bug 的产生。<br>解决此问题的方法就是别偷懒，把地址写出来，代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"test.html"</span>&gt;</span>当前链接地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>虽然是小问题，但体现出了 IE 内核的浏览器和其他浏览器之间存在的细微差别。给我们的一个启示是，不要忽视我们的产品在常用浏览器下的兼容性测试。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天宁夏部署了 Sqlman。同时在使用过程中发现了一些链接地址错误的问题。&lt;br&gt;&lt;br&gt;而我在自己的电脑上测试，却完全没有问题。通过查看代码以及在不同的浏览器下做测试，原来是不同浏览器在实现上的差异问题。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="浏览器 兼容性" scheme="https://akuma.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8-%E5%85%BC%E5%AE%B9%E6%80%A7/"/>
     
   </entry>
   
