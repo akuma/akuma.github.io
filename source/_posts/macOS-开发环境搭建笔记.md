@@ -58,7 +58,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | b
 ### 安装其他命令行工具
 
 ```
-brew install autojump wget git git-extras diff-so-fancy mycli redis
+brew install autojump wget git git-extras diff-so-fancy mycli redis cloc tmux
 ```
 
 一些工具说明：
@@ -67,6 +67,8 @@ brew install autojump wget git git-extras diff-so-fancy mycli redis
 - git-extras：[git 扩展命令](https://github.com/tj/git-extras/blob/master/Commands.md)
 - diff-so-fancy：[更好看的 diff 工具](https://github.com/so-fancy/diff-so-fancy)
 - mycli：[MySQL 命令行客户端](https://github.com/dbcli/mycli)
+- cloc：统计代码行数的工具
+- tmux：多终端模拟工具
 
 ### 修改 zsh 配置
 
@@ -168,7 +170,20 @@ export CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver
 
 ### 开发调试
 
-- Atom（文本编辑器）
+- Atom（文本编辑器）及插件
+  - file-icons
+  - highlight-line
+  - highlight-selected
+  - minimap
+  - minimap-highlight-selected
+  - Sublime-Style-Column-Selection
+  - editorconfig
+  - css-snippets
+  - javascript-snippets
+  - linter
+  - linter-xo
+  - linter-eslint
+  - local-history
 - IntelliJ IDEA（Java IDE）
 - Postman（接口调试工具）
 - GitKraken（Git 客户端）
