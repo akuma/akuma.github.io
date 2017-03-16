@@ -8,13 +8,20 @@
 <p>编辑文件 <code>$HOME/.m2/settings.xml</code>，修改成适合自己的内容（比如包含公司私服设置等）。</p>
 <h3 id="安装-NVM"><a href="#安装-NVM" class="headerlink" title="安装 NVM"></a>安装 NVM</h3><p><code>NVM</code> 是一个 Node.js 版本管理，通过它可以方便的切换 Node.js 版本。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash</div></pre></td></tr></table></figure>
-<h3 id="安装其他命令行工具"><a href="#安装其他命令行工具" class="headerlink" title="安装其他命令行工具"></a>安装其他命令行工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install autojump wget git git-extras diff-so-fancy mycli redis</div></pre></td></tr></table></figure>
+<h3 id="安装其他命令行工具"><a href="#安装其他命令行工具" class="headerlink" title="安装其他命令行工具"></a>安装其他命令行工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install coreutils moreutils autojump htop wget git git-extras diff-so-fancy mycli redis cloc tmux tree unrar</div></pre></td></tr></table></figure>
 <p>一些工具说明：</p>
 <ul>
+<li>coreutils：<a href="https://www.gnu.org/software/coreutils/" target="_blank" rel="external">GNU core utilities</a></li>
+<li>moreutils：<a href="https://www.gnu.org/software/moreutils/" target="_blank" rel="external">GNU more utilities</a></li>
 <li>autojump：<a href="https://github.com/wting/autojump" target="_blank" rel="external">目录导航命令</a></li>
+<li>htop：<a href="https://hisham.hm/htop/" target="_blank" rel="external">类似 top 的命令</a></li>
 <li>git-extras：<a href="https://github.com/tj/git-extras/blob/master/Commands.md" target="_blank" rel="external">git 扩展命令</a></li>
 <li>diff-so-fancy：<a href="https://github.com/so-fancy/diff-so-fancy" target="_blank" rel="external">更好看的 diff 工具</a></li>
 <li>mycli：<a href="https://github.com/dbcli/mycli" target="_blank" rel="external">MySQL 命令行客户端</a></li>
+<li>cloc：统计代码行数的工具</li>
+<li>tmux：多终端模拟工具</li>
+<li>tree：显示目录树的命令</li>
+<li>unrar：解压 rar 文件的命令</li>
 </ul>
 <h3 id="修改-zsh-配置"><a href="#修改-zsh-配置" class="headerlink" title="修改 zsh 配置"></a>修改 zsh 配置</h3><p>编辑 <code>~/.zshrc</code>，添加如下内容：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Config zsh completions</span></div><div class="line">fpath=(/usr/<span class="built_in">local</span>/share/zsh-completions <span class="variable">$fpath</span>)</div><div class="line"></div><div class="line"><span class="comment"># Config autojump</span></div><div class="line">[ <span class="_">-f</span> /usr/<span class="built_in">local</span>/etc/profile.d/autojump.sh ] &amp;&amp; . /usr/<span class="built_in">local</span>/etc/profile.d/autojump.sh</div><div class="line"></div><div class="line"><span class="comment"># Config JAVA HOME</span></div><div class="line"><span class="built_in">export</span> JAVA_HOME=`/usr/libexec/java_home`</div><div class="line"></div><div class="line"><span class="comment"># Config NVM for Node.js</span></div><div class="line"><span class="built_in">export</span> NVM_HOME=<span class="string">"<span class="variable">$HOME</span>/.nvm"</span></div><div class="line"><span class="built_in">export</span> NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</div><div class="line"><span class="built_in">export</span> PHANTOMJS_CDNURL=http://npm.taobao.org/mirrors/phantomjs</div><div class="line"><span class="built_in">export</span> SELENIUM_CDNURL=http://npm.taobao.org/mirrorss/selenium</div><div class="line"><span class="built_in">export</span> CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver</div><div class="line">[ <span class="_">-s</span> <span class="string">"<span class="variable">$NVM_HOME</span>/nvm.sh"</span> ] &amp;&amp; . <span class="string">"<span class="variable">$NVM_HOME</span>/nvm.sh"</span></div></pre></td></tr></table></figure>
@@ -22,7 +29,22 @@
 <h3 id="配置-git"><a href="#配置-git" class="headerlink" title="配置 git"></a>配置 git</h3><p>编辑 <code>~/.gitconfig</code>，内容如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">[user]</div><div class="line">    name = &lt;your name&gt;</div><div class="line">    email = &lt;your email&gt;</div><div class="line"></div><div class="line">[alias]</div><div class="line">    ci = commit -m</div><div class="line">    co = checkout</div><div class="line">    st = status</div><div class="line">    br = branch</div><div class="line">    wc = whatchanged</div><div class="line">    df = diff</div><div class="line">    pom = push origin master</div><div class="line">    unstage = reset HEAD</div><div class="line">    last = log -1 HEAD</div><div class="line">    sl = shortlog -s</div><div class="line">    lg = log -p</div><div class="line">    gl = log --all --graph --pretty=format:&apos;%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit --date=relative</div><div class="line">    praise = blame</div><div class="line"></div><div class="line">[core]</div><div class="line">    autocrlf = input</div><div class="line">    quotepath = false</div><div class="line">    ignorecase = false</div><div class="line">    pager = diff-so-fancy | less --tabs=4 -RFX</div><div class="line">    whitespace = trailing-space,space-before-tab,indent-with-non-tab</div><div class="line">    editor = /usr/bin/vim</div><div class="line"></div><div class="line">[merge]</div><div class="line">    ff = false</div><div class="line"></div><div class="line">[pull]</div><div class="line">    rebase = true</div><div class="line"></div><div class="line">[push]</div><div class="line">    default = matching</div><div class="line"></div><div class="line">[color]</div><div class="line">    status = auto</div><div class="line">    branch = auto</div><div class="line">    diff = auto</div><div class="line">    ui = true</div><div class="line">    pager = true</div><div class="line"></div><div class="line">[color &quot;branch&quot;]</div><div class="line">    current = green reverse</div><div class="line">    local = yellow</div><div class="line">    remote = red</div><div class="line"></div><div class="line">[color &quot;diff&quot;]</div><div class="line">    meta = yellow bold</div><div class="line">    frag = magenta bold</div><div class="line">    old = red bold</div><div class="line">    new = green bold</div><div class="line"></div><div class="line">[color &quot;status&quot;]</div><div class="line">    added = yellow bold</div><div class="line">    changed = red bold</div><div class="line">    untracked = white bold</div><div class="line"></div><div class="line">[color &quot;diff-highlight&quot;]</div><div class="line">    oldNormal = red bold</div><div class="line">    oldHighlight = red bold 52</div><div class="line">    newNormal = green bold</div><div class="line">    newHighlight = green bold 22</div></pre></td></tr></table></figure>
 <h2 id="安装-APP"><a href="#安装-APP" class="headerlink" title="安装 APP"></a>安装 APP</h2><h3 id="开发调试"><a href="#开发调试" class="headerlink" title="开发调试"></a>开发调试</h3><ul>
-<li>Atom（文本编辑器）</li>
+<li>Atom（文本编辑器）及插件<ul>
+<li>file-icons</li>
+<li>highlight-line</li>
+<li>highlight-selected</li>
+<li>minimap</li>
+<li>minimap-highlight-selected</li>
+<li>Sublime-Style-Column-Selection</li>
+<li>editorconfig</li>
+<li>css-snippets</li>
+<li>javascript-snippets</li>
+<li>linter</li>
+<li>linter-xo</li>
+<li>linter-eslint</li>
+<li>local-history</li>
+</ul>
+</li>
 <li>IntelliJ IDEA（Java IDE）</li>
 <li>Postman（接口调试工具）</li>
 <li>GitKraken（Git 客户端）</li>
@@ -38,7 +60,7 @@
 <li>MacDown（Markdown 编辑器）</li>
 <li>OmniGraffle（作图工具）</li>
 </ul>
-</div></article></div></section><footer><div class="paginator"><a href="/2017/01/10/IntelliJ-IDEA-常用快捷键/" class="prev">PREV</a><a href="/2016/12/03/阿里云-ECS-搭建正向代理/" class="next">NEXT</a></div><div data-thread-key="2017/01/05/macOS-开发环境搭建笔记/" data-title="macOS 开发环境搭建笔记" data-url="https://akuma.github.io/2017/01/05/macOS-开发环境搭建笔记/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
+</div></article></div></section><footer><div class="paginator"><a href="/2017/01/10/IntelliJ-IDEA-常用快捷键/" class="prev">上一篇</a><a href="/2016/12/10/Java-转换透明背景图片为-JPEG-的问题/" class="next">下一篇</a></div><div data-thread-key="2017/01/05/macOS-开发环境搭建笔记/" data-title="macOS 开发环境搭建笔记" data-url="https://akuma.github.io/2017/01/05/macOS-开发环境搭建笔记/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
 (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;
