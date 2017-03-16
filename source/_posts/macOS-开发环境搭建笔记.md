@@ -58,17 +58,22 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | b
 ### 安装其他命令行工具
 
 ```
-brew install autojump wget git git-extras diff-so-fancy mycli redis cloc tmux
+brew install coreutils moreutils autojump htop wget git git-extras diff-so-fancy mycli redis cloc tmux tree unrar
 ```
 
 一些工具说明：
 
+- coreutils：[GNU core utilities](https://www.gnu.org/software/coreutils/)
+- moreutils：[GNU more utilities](https://www.gnu.org/software/moreutils/)
 - autojump：[目录导航命令](https://github.com/wting/autojump)
+- htop：[类似 top 的命令](https://hisham.hm/htop/)
 - git-extras：[git 扩展命令](https://github.com/tj/git-extras/blob/master/Commands.md)
 - diff-so-fancy：[更好看的 diff 工具](https://github.com/so-fancy/diff-so-fancy)
 - mycli：[MySQL 命令行客户端](https://github.com/dbcli/mycli)
 - cloc：统计代码行数的工具
 - tmux：多终端模拟工具
+- tree：显示目录树的命令
+- unrar：解压 rar 文件的命令
 
 ### 修改 zsh 配置
 
