@@ -12,7 +12,7 @@
 <h3 id="应用日志和-tomcat-日志有啥联系？"><a href="#应用日志和-tomcat-日志有啥联系？" class="headerlink" title="应用日志和 tomcat 日志有啥联系？"></a>应用日志和 tomcat 日志有啥联系？</h3><p>我们的应用程序在日志输出上可以指定目标，一般最常用的两个目标是：文件、控制台。输出到文件的日志会生成到 <code>/usr/local/tomcat/logs/xxx</code> 目录下，而输出到控制台的日志，则一般存在于 <code>catalina.out</code> 文件。</p>
 <h3 id="这么多日志很麻烦，只看-catalina-out-不就好了吗？"><a href="#这么多日志很麻烦，只看-catalina-out-不就好了吗？" class="headerlink" title="这么多日志很麻烦，只看 catalina.out 不就好了吗？"></a>这么多日志很麻烦，只看 catalina.out 不就好了吗？</h3><p>从目前实际情况来看，可以说 <code>catalina.out</code> 文件就是一个大杂脍，包含了各个虚拟主机中的应用系统输出到控制台的信息以及 tomcat 自身的一些信息。而这个文件的内容会不断累加（不会自动截断，一般手工处理），所以时间长了以后文件往往会超大，动辄好几个 G。当应用程序出现故障时，此文件又大内容又杂，必然给问题原因的查找定位带来更大的麻烦。</p>
 <p>所以，不推荐通过查看这个文件来定位应用程序的问题。而且，应用程序也不应该把日志信息输出到控制台，这样就避免了这个文件大小以比较快的速度增长。</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2009/06/16/用-Java-进行-HTTP-请求的代码示例/" class="prev">上一篇</a><a href="/2009/01/21/Java-枚举类型在-switch-语句中的正确用法/" class="next">下一篇</a></div><div data-thread-key="2009/03/01/日常运维中遇到的日志文件/" data-title="日常运维中遇到的日志文件" data-url="https://akuma.github.io/2009/03/01/日常运维中遇到的日志文件/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
+</div></article></div></section><footer><div class="paginator"><a href="/2009/06/16/用-Java-进行-HTTP-请求的代码示例/" class="prev">PREV</a><a href="/2009/01/21/Java-枚举类型在-switch-语句中的正确用法/" class="next">NEXT</a></div><div data-thread-key="2009/03/01/日常运维中遇到的日志文件/" data-title="日常运维中遇到的日志文件" data-url="https://akuma.github.io/2009/03/01/日常运维中遇到的日志文件/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"iakuma"};
 (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;
