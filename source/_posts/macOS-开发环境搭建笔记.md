@@ -200,7 +200,8 @@ export CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver
 
 ### 生产效率
 
-- Alfred
+- Alfred（快速启动工具）
+- iTerm2（终端模拟器）
 - 1Password（密码管理）
 - Spectacle（窗口管理）
 - f.lux（显示器色温调整）
