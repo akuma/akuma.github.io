@@ -52,7 +52,7 @@ brew install maven
 `NVM` 是一个 Node.js 版本管理，通过它可以方便的切换 Node.js 版本。
 
 ```
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
 ```
 
 ### 安装其他命令行工具
