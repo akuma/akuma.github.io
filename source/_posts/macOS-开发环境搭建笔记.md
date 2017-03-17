@@ -189,6 +189,8 @@ export CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver
   - linter-xo
   - linter-eslint
   - local-history
+  - dracula-ui
+  - dracula-theme
 - IntelliJ IDEA（Java IDE）
 - Postman（接口调试工具）
 - GitKraken（Git 客户端）
